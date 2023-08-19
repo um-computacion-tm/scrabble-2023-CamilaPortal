@@ -1,3 +1,14 @@
+## [0.0.2] - 19-08-2023
+
+## ADDED
+
+- Addition of the missing tiles with their corresponding values
+- Creation of exceptions:
+            - NoHayFichas: if the bag of tiles is empty, the NoHayFichas exception is raised.
+            - ImposibleCambiarMasDe7: impossible to exchange more than 7 tiles, since each player has 7 tiles.
+            - BolsaLlena: if the limit of 100 tiles is reached, the BolsaLlena exception is raised, which indicates that the bag is full.
+- Creation of tests case for all exceptions
+
 ## [0.0.1] - 19-08-2023
 
 ## ADDED
