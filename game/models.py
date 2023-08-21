@@ -9,10 +9,19 @@ class ImposibleCambiarMasDe7(Exception):
 class BolsaLlena(Exception):
     pass
 
+class NoEsUnJoker(Exception):
+    pass
+
 class Tile:
     def __init__(self, letter, value):
         self.letter = letter
         self.value = value
+
+    def joker(self, new_letter):
+        if self.letter == "*":
+            self.letter = new_letter
+        else:
+            raise NoEsUnJoker(Exception)
 
 class BagTiles:
     def __init__(self):

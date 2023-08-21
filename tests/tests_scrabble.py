@@ -1,11 +1,32 @@
 import unittest
-from game.models import Tile, BagTiles, NoHayFichas, ImposibleCambiarMasDe7, BolsaLlena
+from game.models import Tile, BagTiles, NoHayFichas, ImposibleCambiarMasDe7, BolsaLlena, NoEsUnJoker
 from unittest.mock import patch
 
 class TestTiles(unittest.TestCase):
     def test_tile(self):
         tile= Tile("A", 1)
         self.assertEqual(tile.letter,"A")
+        self.assertEqual(tile.value, 1)
+    
+    def test_joker(self):
+        tile = Tile("*", 0)
+        tile.joker('Y')
+        self.assertEqual(tile.letter, "Y")
+        self.assertEqual(tile.value, 0)
+    
+    def test_joker2(self):
+        tile = Tile("*", 0)
+        tile.joker('A')
+        self.assertEqual(tile.letter, "A")
+        self.assertEqual(tile.value, 0)
+
+    def test_no_joker(self):
+        tile = Tile("O", 1)
+
+        with self.assertRaises(NoEsUnJoker):
+            tile.joker('A')
+        
+        self.assertEqual(tile.letter, "O")
         self.assertEqual(tile.value, 1)
 
 class TestBagTiles(unittest.TestCase):

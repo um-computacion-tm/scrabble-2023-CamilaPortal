@@ -1,3 +1,11 @@
+## [0.0.3] - 21-08-2023
+
+## ADDED
+
+- Creation of the 'joker' method that checks if the current letter of the tile is a joker ("*"), and if it is, it changes the letter to the new one provided
+- Creation of an exception to indicate that it's not a joker tile.
+- Creation of tests case for the method and the exception
+
 ## [0.0.2] - 19-08-2023
 
 ## ADDED
