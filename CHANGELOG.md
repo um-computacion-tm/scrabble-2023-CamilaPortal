@@ -2,6 +2,12 @@
 
 ## ADDED
 
+- Creation of the ScrabbleGame class
+
+## [0.0.4] - 23-08-2023
+
+## ADDED
+
 - Creation of the Board class
 
 ## [0.0.4] - 23-08-2023
