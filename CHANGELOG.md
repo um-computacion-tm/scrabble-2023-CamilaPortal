@@ -1,3 +1,13 @@
+## [0.0.4] - 23-08-2023
+
+## ADDED
+
+- Creation of the Player class
+
+## FIXED
+
+- Renamed files: models and tests_scrabble to tiles and tests_tiles
+
 ## [0.0.3] - 21-08-2023
 
 ## ADDED

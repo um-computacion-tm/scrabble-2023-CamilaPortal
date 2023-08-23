@@ -1,5 +1,5 @@
 import unittest
-from game.models import Tile, BagTiles, NoHayFichas, ImposibleCambiarMasDe7, BolsaLlena, NoEsUnJoker
+from game.tiles import Tile, BagTiles, NoHayFichas, ImposibleCambiarMasDe7, BolsaLlena, NoEsUnJoker
 from unittest.mock import patch
 
 class TestTiles(unittest.TestCase):
