@@ -1,3 +1,9 @@
+## [0.0.5] - 25-08-2023
+
+## ADDED
+
+- Methods to set multipliers added to Board class
+
 ## [0.0.4] - 23-08-2023
 
 ## ADDED
