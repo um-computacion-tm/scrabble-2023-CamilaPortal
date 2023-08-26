@@ -1,3 +1,9 @@
+## [0.0.6] - 26-08-2023
+
+## ADDED
+
+- Method for word multipliers added to the Cell class
+
 ## [0.0.5] - 25-08-2023
 
 ## ADDED
