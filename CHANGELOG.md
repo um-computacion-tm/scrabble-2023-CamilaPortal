@@ -1,3 +1,9 @@
+## [0.0.7] - 31-08-2023
+
+## FIXED
+
+- Replacement of the "calculate_word_value" method by a function
+
 ## [0.0.6] - 26-08-2023
 
 ## ADDED

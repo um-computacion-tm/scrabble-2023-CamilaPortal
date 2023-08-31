@@ -1,11 +1,12 @@
 from game.tiles import Tile
 
 class Cell:
-    def __init__(self, multiplier, multiplier_type):
+    def __init__(self, multiplier=1, multiplier_type="", letter=None):
 
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
-        self.letter = None
+        self.letter = letter
+        self.activo = True
 
     def add_letter(self, letter: Tile):
         self.letter= letter
@@ -18,14 +19,14 @@ class Cell:
         else:
             return self.letter.value
         
-    def calculate_word_value(self, cells):
-        total_value = 0
-        word_multiplier = 1
+def calculate_word_value(cells):
+    total_value = 0
+    word_multiplier = 1
 
-        for cell in cells:
-            cell_value = cell.calculate_value()
-            if cell.multiplier_type == 'word':
-                word_multiplier *= cell.multiplier
-            total_value += cell_value
+    for cell in cells:
+        cell_value = cell.calculate_value()
+        if cell.multiplier_type == 'word':
+            word_multiplier *= cell.multiplier
+        total_value += cell_value
 
-        return total_value * word_multiplier
+    return total_value * word_multiplier
