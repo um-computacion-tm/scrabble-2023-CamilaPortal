@@ -1,3 +1,9 @@
+## [0.0.7] - 01-09-2023
+
+## ADDED
+ 
+ - CodeClimate and CircleCI Implemented.
+
 ## [0.0.7] - 31-08-2023
 
 ## FIXED
