@@ -1,3 +1,9 @@
+## [0.0.9] - 08-09-2023
+
+## ADDED
+ 
+ - Creation of the method "next_turn" in the class Scrabble
+
 ## [0.0.8] - 07-09-2023
 
 ## ADDED
