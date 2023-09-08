@@ -1,3 +1,13 @@
+## [0.0.8] - 07-09-2023
+
+## ADDED
+ 
+ - Implementation of the active or inactive state of cells for point calculation.
+
+ ## FIXED
+
+ - Replacement of the "calculate_word_value" function by a method
+
 ## [0.0.7] - 01-09-2023
 
 ## ADDED
