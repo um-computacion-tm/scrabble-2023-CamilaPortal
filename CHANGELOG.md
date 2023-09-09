@@ -1,3 +1,9 @@
+## [0.0.9] - 09-09-2023
+
+## ADDED
+ 
+ - Creation of main.py that contains the logic for the user to start playing.
+
 ## [0.0.9] - 08-09-2023
 
 ## ADDED
