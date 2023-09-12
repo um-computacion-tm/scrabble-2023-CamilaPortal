@@ -1,3 +1,11 @@
+## [0.0.10] - 11-09-2023
+
+## ADDED
+
+- Creation of the method "validate_word_inside_board" to verify if a word fits on the board according to the given orientation and location.
+
+- Exception to check that the orientation is only V or H.
+
 ## [0.0.9] - 09-09-2023
 
 ## ADDED
