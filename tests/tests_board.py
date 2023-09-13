@@ -69,6 +69,17 @@ class TestBoard(unittest.TestCase):
 
         with self.assertRaises(SoloVoHParaLaOrientacion):
             board.validate_word_inside_board(word, location, orientation)
+    
+    # def test_board_empty(self):
+    #     board = Board()
+    #     assert board.is_empty == True
+    
+    # def test_board_not_empty(self):
+    #     board = Board()
+    #     board.grid[7][7].add_letter(Tile('C', 1))
+    #     assert board.is_empty == False
+    
+
 
 
 if __name__ == '__main__':
