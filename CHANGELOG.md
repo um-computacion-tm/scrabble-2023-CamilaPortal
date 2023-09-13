@@ -1,3 +1,9 @@
+## [0.0.10] - 13-09-2023
+
+## FIXED
+
+- Cognitive Complexity in "validate_word_inside_board"
+
 ## [0.0.10] - 11-09-2023
 
 ## ADDED

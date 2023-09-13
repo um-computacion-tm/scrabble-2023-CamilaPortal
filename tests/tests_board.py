@@ -1,5 +1,6 @@
 import unittest
 from game.board import Board, SoloVoHParaLaOrientacion
+from game.tiles import Tile
 
 
 class TestBoard(unittest.TestCase):
