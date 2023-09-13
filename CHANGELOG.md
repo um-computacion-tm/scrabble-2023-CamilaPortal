@@ -1,3 +1,63 @@
+## [0.0.10] - 13-09-2023
+
+## FIXED
+
+- Cognitive Complexity in "validate_word_inside_board"
+
+## [0.0.10] - 11-09-2023
+
+## ADDED
+
+- Creation of the method "validate_word_inside_board" to verify if a word fits on the board according to the given orientation and location.
+
+- Exception to check that the orientation is only V or H.
+
+## [0.0.9] - 09-09-2023
+
+## ADDED
+ 
+ - Creation of main.py that contains the logic for the user to start playing.
+
+## [0.0.9] - 08-09-2023
+
+## ADDED
+ 
+ - Creation of the method "next_turn" in the class Scrabble
+
+## [0.0.8] - 07-09-2023
+
+## ADDED
+ 
+ - Implementation of the active or inactive state of cells for point calculation.
+
+ ## FIXED
+
+ - Replacement of the "calculate_word_value" function by a method
+
+## [0.0.7] - 01-09-2023
+
+## ADDED
+ 
+ - CodeClimate and CircleCI Implemented.
+
+## [0.0.7] - 31-08-2023
+
+## FIXED
+
+- Replacement of the "calculate_word_value" method by a function
+
+## [0.0.6] - 26-08-2023
+
+## ADDED
+
+- Method for word multipliers added to the Cell class
+
+## [0.0.5] - 25-08-2023
+
+## ADDED
+
+- Methods to set multipliers added to Board class
+
 ## [0.0.4] - 23-08-2023
 
 ## ADDED
