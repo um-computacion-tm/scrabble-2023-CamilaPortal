@@ -1,3 +1,9 @@
+## [0.0.10] - 14-09-2023
+
+## ADDED
+
+- Creation of the method "is_empty" to check if the board is empty or not
+
 ## [0.0.10] - 13-09-2023
 
 ## FIXED

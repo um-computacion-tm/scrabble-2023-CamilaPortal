@@ -43,3 +43,8 @@ class Board:
             return self.validate_word_vertical(word, location)
         else:
             raise SoloVoHParaLaOrientacion(Exception)
+        
+    def is_empty(self):
+        if self.grid[7][7].letter is None:
+            return True
+        return False
