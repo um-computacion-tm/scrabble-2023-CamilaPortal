@@ -1,3 +1,9 @@
+## [0.0.11] - 15-09-2023
+
+## ADDED
+
+- Creation of the method "validate_word_place_board" to check if the word is horizontal and its position is in the middle of the board
+
 ## [0.0.10] - 14-09-2023
 
 ## ADDED

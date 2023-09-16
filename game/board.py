@@ -48,3 +48,12 @@ class Board:
         if self.grid[7][7].letter is None:
             return True
         return False
+    
+    def validate_word_place_board(self, word, location, orientation):
+        if orientation != "H":
+            raise SoloVoHParaLaOrientacion(Exception)
+
+        x, y = location
+        if y <= 7 < y + len(word) and x == 7:
+            return True
+        return False
