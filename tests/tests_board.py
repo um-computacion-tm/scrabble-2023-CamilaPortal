@@ -110,7 +110,27 @@ class TestBoard(unittest.TestCase):
         with self.assertRaises(SoloVoHParaLaOrientacion):
             board.validate_word_place_board(word, location, orientation)
     
+    def test_place_word_empty_board_vertical_fine(self):
+        
+        board = Board()
+        word = "Facultad"
+        location = (4, 7)
+        orientation = "V"
 
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        assert word_is_valid == True
+
+    def test_place_word_empty_board_vertical_wrong(self):
+        
+        board = Board()
+        word = "Facultad"
+        location = (2, 4)
+        orientation = "V"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        assert word_is_valid == False
 
 if __name__ == '__main__':
     unittest.main()

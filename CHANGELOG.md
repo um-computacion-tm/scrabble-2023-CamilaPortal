@@ -1,3 +1,9 @@
+## [0.0.11] - 18-09-2023
+
+## ADDED
+
+- Code added to "validate_word_place_board" to check if the word is vertical and its position is in the middle of the board
+
 ## [0.0.11] - 15-09-2023
 
 ## ADDED

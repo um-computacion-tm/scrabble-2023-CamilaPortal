@@ -50,10 +50,16 @@ class Board:
         return False
     
     def validate_word_place_board(self, word, location, orientation):
-        if orientation != "H":
+        if orientation not in ["H", "V"]:
             raise SoloVoHParaLaOrientacion(Exception)
-
+        
         x, y = location
-        if y <= 7 < y + len(word) and x == 7:
-            return True
+        if orientation == "H": 
+            if y <= 7 < y + len(word) and x == 7:
+                return True
+        
+        elif orientation == "V":
+            if x <= 7 < x + len(word) and y == 7:
+                return True
         return False
+        
