@@ -132,5 +132,19 @@ class TestBoard(unittest.TestCase):
 
         assert word_is_valid == False
 
+    def test_place_word_not_empty_board_horizontal_fine(self):
+        board = Board()
+        board.grid[7] [7].add_letter(Tile('C', 1))
+        board.grid[8] [7].add_letter(Tile('A', 1))
+        board.grid[9] [7].add_letter(Tile('S', 1))
+        board.grid[10] [7].add_letter(Tile('A', 1))
+        word = "FACULTAD"
+        location = (8, 6)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        assert word_is_valid == True
+
 if __name__ == '__main__':
     unittest.main()

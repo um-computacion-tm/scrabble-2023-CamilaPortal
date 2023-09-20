@@ -55,11 +55,17 @@ class Board:
         
         x, y = location
         if orientation == "H": 
-            if y <= 7 < y + len(word) and x == 7:
+            if self.validate_word_inside_board(word, location, orientation) == True:
+                for i in range(len(word)):
+                    if self.grid[x][y + i].letter is not None and self.grid[x][y + i].letter != word[i]:
+                        return False
                 return True
         
         elif orientation == "V":
             if x <= 7 < x + len(word) and y == 7:
+                for i in range(x, x + len(word)):
+                    if self.grid[i][7].letter is not None and self.grid[i][7].letter != word[i - x]:
+                        return False
                 return True
         return False
         

@@ -1,3 +1,9 @@
+## [0.0.11] - 19-09-2023
+
+## ATTEMPT
+
+- Working on the method "validate_word_place_board" to validate if, in a non-empty board, the word crosses with a letter already placed.
+
 ## [0.0.11] - 18-09-2023
 
 ## ADDED
