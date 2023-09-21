@@ -1,6 +1,7 @@
 import unittest
 from game.board import Board, SoloVoHParaLaOrientacion
 from game.tiles import Tile
+from game.cell import Cell
 
 
 class TestBoard(unittest.TestCase):
@@ -113,7 +114,7 @@ class TestBoard(unittest.TestCase):
     def test_place_word_empty_board_vertical_fine(self):
         
         board = Board()
-        word = "Facultad"
+        word = "FACULTAD"
         location = (4, 7)
         orientation = "V"
 
@@ -139,12 +140,12 @@ class TestBoard(unittest.TestCase):
         board.grid[9] [7].add_letter(Tile('S', 1))
         board.grid[10] [7].add_letter(Tile('A', 1))
         word = "FACULTAD"
-        location = (8, 6)
+        location = (10, 6)
         orientation = "H"
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
 
-        assert word_is_valid == True
+        self.assertEqual(word_is_valid, True)
 
 if __name__ == '__main__':
     unittest.main()

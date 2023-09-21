@@ -1,4 +1,5 @@
 from game.cell import Cell
+from game.tiles import Tile
 
 class SoloVoHParaLaOrientacion(Exception):
     pass
@@ -52,20 +53,24 @@ class Board:
     def validate_word_place_board(self, word, location, orientation):
         if orientation not in ["H", "V"]:
             raise SoloVoHParaLaOrientacion(Exception)
-        
-        x, y = location
-        if orientation == "H": 
-            if self.validate_word_inside_board(word, location, orientation) == True:
-                for i in range(len(word)):
-                    if self.grid[x][y + i].letter is not None and self.grid[x][y + i].letter != word[i]:
+            
+        x, y = location    
+
+        if orientation == "H":         
+            if not self.validate_word_inside_board(word, location, orientation):
+                return False              
+            for i in range(len(word)):                 
+                if self.grid[x][y + i].letter is not None:                     
+                    if self.grid[x][y + i].letter.letter != word[i]:  
                         return False
-                return True
-        
-        elif orientation == "V":
-            if x <= 7 < x + len(word) and y == 7:
-                for i in range(x, x + len(word)):
-                    if self.grid[i][7].letter is not None and self.grid[i][7].letter != word[i - x]:
+            return True
+            
+        elif orientation == "V":           
+            if not self.validate_word_inside_board(word, location, orientation):
+                return False              
+            for i in range(len(word)):                   
+                if self.grid[x + i][y].letter is not None:                      
+                    if self.grid[x + i][y].letter.letter != word[i]:
                         return False
-                return True
-        return False
-        
+            return True
+                    

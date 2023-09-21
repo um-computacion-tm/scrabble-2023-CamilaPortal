@@ -1,4 +1,10 @@
-## [0.0.11] - 19-09-2023
+## [0.0.11] - 21-09-2023
+
+## ATTEMPT
+
+- Working on the method 'validate_word_place_board'; it validates whether the word crosses with a word already placed but currently does not check if the word is in the middle
+
+# [0.0.11] - 19-09-2023
 
 ## ATTEMPT
 
