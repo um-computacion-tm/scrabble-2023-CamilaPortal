@@ -1,3 +1,9 @@
+## [0.0.12] - 22-09-2023
+
+## ADDED
+
+- Method 'validate_word_place_board' working correctly
+
 ## [0.0.11] - 21-09-2023
 
 ## ATTEMPT

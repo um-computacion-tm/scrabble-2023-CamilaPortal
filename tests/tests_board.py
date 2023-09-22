@@ -140,12 +140,82 @@ class TestBoard(unittest.TestCase):
         board.grid[9] [7].add_letter(Tile('S', 1))
         board.grid[10] [7].add_letter(Tile('A', 1))
         word = "FACULTAD"
-        location = (10, 6)
+        location = (8, 6)
         orientation = "H"
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
 
         self.assertEqual(word_is_valid, True)
+
+    def test_place_word_not_empty_board_horizontal_wrong(self):
+        board = Board()
+        board.grid[7] [7].add_letter(Tile('C', 1))
+        board.grid[8] [7].add_letter(Tile('A', 1))
+        board.grid[9] [7].add_letter(Tile('S', 1))
+        board.grid[10] [7].add_letter(Tile('A', 1))
+        word = "FACULTAD"
+        location = (9, 6)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        self.assertEqual(word_is_valid, False)
+    
+    def test_place_word_not_empty_board_horizontal_out_of_board(self):
+        board = Board()
+        board.grid[7] [7].add_letter(Tile('C', 1))
+        board.grid[8] [7].add_letter(Tile('A', 1))
+        board.grid[9] [7].add_letter(Tile('S', 1))
+        board.grid[10] [7].add_letter(Tile('A', 1))
+        word = "FACULTADES"
+        location = (8, 6)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        self.assertEqual(word_is_valid, False)
+
+    def test_place_word_not_empty_board_vertical_fine(self):
+        board = Board()
+        board.grid[7] [7].add_letter(Tile('C', 1))
+        board.grid[7] [8].add_letter(Tile('A', 1))
+        board.grid[7] [9].add_letter(Tile('S', 1))
+        board.grid[7] [10].add_letter(Tile('A', 1))
+        word = "FACULTAD"
+        location = (6, 8)
+        orientation = "V"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        self.assertEqual(word_is_valid, True)
+    
+    def test_place_word_not_empty_board_vertical_wrong(self):
+        board = Board()
+        board.grid[7] [7].add_letter(Tile('C', 1))
+        board.grid[7] [8].add_letter(Tile('A', 1))
+        board.grid[7] [9].add_letter(Tile('S', 1))
+        board.grid[7] [10].add_letter(Tile('A', 1))
+        word = "FACULTAD"
+        location = (6, 9)
+        orientation = "V"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        self.assertEqual(word_is_valid, False)
+
+    def test_place_word_not_empty_board_vertical_out_of_board(self):
+        board = Board()
+        board.grid[7] [7].add_letter(Tile('C', 1))
+        board.grid[7] [8].add_letter(Tile('A', 1))
+        board.grid[7] [9].add_letter(Tile('S', 1))
+        board.grid[7] [10].add_letter(Tile('A', 1))
+        word = "FACULTADES"
+        location = (6, 8)
+        orientation = "V"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+
+        self.assertEqual(word_is_valid, False)
 
 if __name__ == '__main__':
     unittest.main()

@@ -55,22 +55,31 @@ class Board:
             raise SoloVoHParaLaOrientacion(Exception)
             
         x, y = location    
-
-        if orientation == "H":         
+        if orientation == "H": 
             if not self.validate_word_inside_board(word, location, orientation):
-                return False              
-            for i in range(len(word)):                 
-                if self.grid[x][y + i].letter is not None:                     
-                    if self.grid[x][y + i].letter.letter != word[i]:  
-                        return False
-            return True
+                return False
+            if self.is_empty() is True:
+                if y <= 7 < y + len(word) and x == 7:
+                    return True
+                return False
+            elif self.is_empty() is False:
+                for i in range(len(word)):                 
+                    if self.grid[x][y + i].letter is not None:                     
+                        if self.grid[x][y + i].letter.letter != word[i]:  
+                            return False
+                return True
             
         elif orientation == "V":           
             if not self.validate_word_inside_board(word, location, orientation):
-                return False              
-            for i in range(len(word)):                   
-                if self.grid[x + i][y].letter is not None:                      
-                    if self.grid[x + i][y].letter.letter != word[i]:
-                        return False
-            return True
+                return False   
+            if self.is_empty() is True:
+                if x <= 7 < x + len(word) and y == 7:
+                    return True
+                return False 
+            elif self.is_empty() is False:          
+                for i in range(len(word)):                   
+                    if self.grid[x + i][y].letter is not None:                      
+                        if self.grid[x + i][y].letter.letter != word[i]:
+                            return False
+                return True
                     
