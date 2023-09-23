@@ -49,37 +49,42 @@ class Board:
         if self.grid[7][7].letter is None:
             return True
         return False
-    
+
+    def validate_word_place_board_horizontal(self, word, location):
+        x, y = location
+        if not self.validate_word_inside_board(word, location, "H"):
+            return False
+        if self.is_empty() is True:
+            if y <= 7 < y + len(word) and x == 7:
+                return True
+            return False
+        elif self.is_empty() is False:
+            for i in range(len(word)):
+                if self.grid[x][y + i].letter is not None:
+                    if self.grid[x][y + i].letter.letter != word[i]:
+                        return False
+            return True
+
+    def validate_word_place_board_vertical(self, word, location):
+        x, y = location
+        if not self.validate_word_inside_board(word, location, "V"):
+            return False
+        if self.is_empty() is True:
+            if x <= 7 < x + len(word) and y == 7:
+                return True
+            return False
+        elif self.is_empty() is False:
+            for i in range(len(word)):
+                if self.grid[x + i][y].letter is not None:
+                    if self.grid[x + i][y].letter.letter != word[i]:
+                        return False
+            return True
+
     def validate_word_place_board(self, word, location, orientation):
-        if orientation not in ["H", "V"]:
+        if orientation == "H":
+            return self.validate_word_place_board_horizontal(word, location)
+        elif orientation == "V":
+            return self.validate_word_place_board_vertical(word, location)
+        else:
             raise SoloVoHParaLaOrientacion(Exception)
-            
-        x, y = location    
-        if orientation == "H": 
-            if not self.validate_word_inside_board(word, location, orientation):
-                return False
-            if self.is_empty() is True:
-                if y <= 7 < y + len(word) and x == 7:
-                    return True
-                return False
-            elif self.is_empty() is False:
-                for i in range(len(word)):                 
-                    if self.grid[x][y + i].letter is not None:                     
-                        if self.grid[x][y + i].letter.letter != word[i]:  
-                            return False
-                return True
-            
-        elif orientation == "V":           
-            if not self.validate_word_inside_board(word, location, orientation):
-                return False   
-            if self.is_empty() is True:
-                if x <= 7 < x + len(word) and y == 7:
-                    return True
-                return False 
-            elif self.is_empty() is False:          
-                for i in range(len(word)):                   
-                    if self.grid[x + i][y].letter is not None:                      
-                        if self.grid[x + i][y].letter.letter != word[i]:
-                            return False
-                return True
-                    
+

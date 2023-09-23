@@ -1,3 +1,9 @@
+## [0.0.12] - 23-09-2023
+
+## FIXED
+
+- Refactor the 'validate_word_place_board' method to pass CodeClimate's checks.
+
 ## [0.0.12] - 22-09-2023
 
 ## ADDED
