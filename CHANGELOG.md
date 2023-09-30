@@ -1,3 +1,9 @@
+## [0.0.13] - 29-09-2023
+
+## ADDED
+
+- Method 'has_letters' to check if the player has the necessary tiles (with specific letters and counts) to form a word
+
 ## [0.0.12] - 23-09-2023
 
 ## FIXED
