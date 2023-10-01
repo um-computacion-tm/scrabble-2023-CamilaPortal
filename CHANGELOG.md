@@ -1,3 +1,57 @@
+## [0.0.14] - 1-09-2023
+
+## ADDED
+
+- Implementation of 'dictionary' to validate words
+
+## [0.0.13] - 29-09-2023
+
+## ADDED
+
+- Method 'has_letters' to check if the player has the necessary tiles (with specific letters and counts) to form a word
+
+## [0.0.12] - 23-09-2023
+
+## FIXED
+
+- Refactor the 'validate_word_place_board' method to pass CodeClimate's checks.
+
+## [0.0.12] - 22-09-2023
+
+## ADDED
+
+- Method 'validate_word_place_board' working correctly
+
+## [0.0.11] - 21-09-2023
+
+## ATTEMPT
+
+- Working on the method 'validate_word_place_board'; it validates whether the word crosses with a word already placed but currently does not check if the word is in the middle
+
+# [0.0.11] - 19-09-2023
+
+## ATTEMPT
+
+- Working on the method "validate_word_place_board" to validate if, in a non-empty board, the word crosses with a letter already placed.
+
+## [0.0.11] - 18-09-2023
+
+## ADDED
+
+- Code added to "validate_word_place_board" to check if the word is vertical and its position is in the middle of the board
+
+## [0.0.11] - 15-09-2023
+
+## ADDED
+
+- Creation of the method "validate_word_place_board" to check if the word is horizontal and its position is in the middle of the board
+
+## [0.0.10] - 14-09-2023
+
+## ADDED
+
+- Creation of the method "is_empty" to check if the board is empty or not
+
 ## [0.0.10] - 13-09-2023
 
 ## FIXED
