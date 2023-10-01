@@ -1,3 +1,9 @@
+## [0.0.14] - 1-09-2023
+
+## ADDED
+
+- Implementation of 'dictionary' to validate words
+
 ## [0.0.13] - 29-09-2023
 
 ## ADDED
