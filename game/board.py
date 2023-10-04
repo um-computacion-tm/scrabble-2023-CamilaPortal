@@ -4,6 +4,9 @@ from game.tiles import Tile
 class SoloVoHParaLaOrientacion(Exception):
     pass
 
+class NoValid(Exception):
+    pass
+
 class Board:
     def __init__(self):
         self.grid=[
@@ -87,4 +90,21 @@ class Board:
             return self.validate_word_place_board_vertical(word, location)
         else:
             raise SoloVoHParaLaOrientacion(Exception)
+        
+    def put_word(self, word, location, orientation):
+        if self.validate_word_inside_board(word, location, orientation) and self.validate_word_place_board(word, location, orientation):
+            x, y = location
+            if orientation.lower() == 'h':
+                for i, letter in enumerate(word):
+                    tile = Tile(letter, value=any)  
+                    self.grid[x][y + i].letter = tile
+            elif orientation.lower() == 'v':
+                for i, letter in enumerate(word):
+                    tile = Tile(letter, value=any)
+                    self.grid[x + i][y].letter = tile
+        else:
+            raise NoValid(Exception)
+
+
+
 

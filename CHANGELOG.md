@@ -1,4 +1,10 @@
-## [0.0.14] - 1-09-2023
+## [0.0.15] - 4-10-2023
+
+## ADDED
+
+- Method 'put_word' responsible for placing a word on the game board based on the given word, location, and orientation.
+
+## [0.0.14] - 1-10-2023
 
 ## ADDED
 

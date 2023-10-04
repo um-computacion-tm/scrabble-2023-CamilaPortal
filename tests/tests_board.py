@@ -1,5 +1,5 @@
 import unittest
-from game.board import Board, SoloVoHParaLaOrientacion
+from game.board import Board, SoloVoHParaLaOrientacion, NoValid
 from game.tiles import Tile
 from game.cell import Cell
 
@@ -216,6 +216,45 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_board(word, location, orientation)
 
         self.assertEqual(word_is_valid, False)
+
+    def test_place_word_horizontal_valid(self):
+        board=Board()
+        word = "hola"
+        location = (7, 6)
+        orientation = "H"
+        self.assertTrue(board.validate_word_inside_board(word, location, orientation))
+        self.assertTrue(board.validate_word_place_board(word, location, orientation))
+        board.put_word(word, location, orientation)
+        
+
+    def test_place_word_vertical_valid(self):
+        board=Board()
+        word = "mundo"
+        location = (6, 7)
+        orientation = "V"
+        self.assertTrue(board.validate_word_inside_board(word, location, orientation))
+        self.assertTrue(board.validate_word_place_board(word, location, orientation))
+        board.put_word(word, location, orientation)
+
+    def test_place_word_invalid_location(self):
+        board=Board()
+        word = "hola"
+        location = (0, 0)
+        orientation = "H"
+        self.assertTrue(board.validate_word_inside_board(word, location, orientation))
+        self.assertFalse(board.validate_word_place_board(word, location, orientation))
+        with self.assertRaises(NoValid):
+            board.put_word(word, location, orientation)
+
+    def test_place_word_invalid_word(self):
+        board=Board()
+        word = "invalidado"
+        location = (7, 7)
+        orientation = "H"
+        self.assertFalse(board.validate_word_inside_board(word, location, orientation))
+        self.assertFalse(board.validate_word_place_board(word, location, orientation))
+        with self.assertRaises(NoValid):
+            board.put_word(word, location, orientation)
 
 if __name__ == '__main__':
     unittest.main()
