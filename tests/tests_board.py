@@ -1,7 +1,8 @@
 import unittest
-from game.board import Board, SoloVoHParaLaOrientacion, NoValid
-from game.tiles import Tile
+from game.board import Board, SoloVoHParaLaOrientacion, NoValid, WordOutOfBoard, NotEnoughLetters
+from game.tiles import Tile, BagTiles
 from game.cell import Cell
+from game.player import Player
 
 
 class TestBoard(unittest.TestCase):
@@ -47,9 +48,8 @@ class TestBoard(unittest.TestCase):
         location = (14, 9)
         orientation = "H"
 
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-        assert word_is_valid == False
+        with self.assertRaises(WordOutOfBoard):
+            board.validate_word_inside_board(word, location, orientation)
         
     
     def test_word_out_of_board_V(self):
@@ -58,9 +58,8 @@ class TestBoard(unittest.TestCase):
         location = (9, 3)
         orientation = "V"
 
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-        assert word_is_valid == False
+        with self.assertRaises(WordOutOfBoard):
+            board.validate_word_inside_board(word, location, orientation)
 
     def test_incorrect_orientation(self):
         board = Board()
@@ -100,6 +99,17 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_board(word, location, orientation)
 
         assert word_is_valid == False
+    
+
+    # def test_place_word_empty_board_horizontal_out_of_board(self):
+        
+    #     board = Board()
+    #     word = "Facultad"
+    #     location = (-7, 8)
+    #     orientation = "H"
+
+    #     with self.assertRaises(WordOutOfBoard):
+    #         board.validate_word_place_board_horizontal(word, location)
     
     def test_place_word_empty_board_orientation_wrong(self):
 
@@ -171,9 +181,8 @@ class TestBoard(unittest.TestCase):
         location = (8, 6)
         orientation = "H"
 
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-        self.assertEqual(word_is_valid, False)
+        with self.assertRaises(WordOutOfBoard):
+            board.validate_word_place_board(word, location, orientation)
 
     def test_place_word_not_empty_board_vertical_fine(self):
         board = Board()
@@ -213,11 +222,10 @@ class TestBoard(unittest.TestCase):
         location = (6, 8)
         orientation = "V"
 
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        with self.assertRaises(WordOutOfBoard):
+            board.validate_word_place_board(word, location, orientation)
 
-        self.assertEqual(word_is_valid, False)
-
-    def test_place_word_horizontal_valid(self):
+    def test_put_word_horizontal_valid(self):
         board=Board()
         word = "hola"
         location = (7, 6)
@@ -227,7 +235,7 @@ class TestBoard(unittest.TestCase):
         board.put_word(word, location, orientation)
         
 
-    def test_place_word_vertical_valid(self):
+    def test_put_word_vertical_valid(self):
         board=Board()
         word = "mundo"
         location = (6, 7)
@@ -236,7 +244,7 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(board.validate_word_place_board(word, location, orientation))
         board.put_word(word, location, orientation)
 
-    def test_place_word_invalid_location(self):
+    def test_put_word_invalid_location(self):
         board=Board()
         word = "hola"
         location = (0, 0)
@@ -246,15 +254,40 @@ class TestBoard(unittest.TestCase):
         with self.assertRaises(NoValid):
             board.put_word(word, location, orientation)
 
-    def test_place_word_invalid_word(self):
+    def test_put_word_invalid_word(self):
         board=Board()
         word = "invalidado"
         location = (7, 7)
         orientation = "H"
-        self.assertFalse(board.validate_word_inside_board(word, location, orientation))
-        self.assertFalse(board.validate_word_place_board(word, location, orientation))
-        with self.assertRaises(NoValid):
+
+        with self.assertRaises(WordOutOfBoard):
             board.put_word(word, location, orientation)
+
+    # def test_put_word_without_enough_letters(self):
+    #     board=Board()
+    #     bag_tile = BagTiles()
+    #     bag_tile.tiles = [
+    #         Tile(letter='P', value=1),
+    #         Tile(letter='O', value=1),
+    #         Tile(letter='L', value=1),
+    #         Tile(letter='A', value=1),
+    #         Tile(letter='C', value=1),
+    #         Tile(letter='U', value=1),
+    #         Tile(letter='M', value=1),
+    #     ]
+    #     player = Player(bag_tile)
+    #     # tiles = [
+    #     #     Tile(letter='H', value=1),
+    #     #     Tile(letter='O', value=1),
+    #     #     Tile(letter='L', value=1),
+    #     #     Tile(letter='A', value=1),
+    #     # ]
+    #     word="perro"
+    #     location=(7,8)
+    #     orientation='h'
+    #     self.assertEqual(player.has_letters(word), False)
+    #     with self.assertRaises(NotEnoughLetters):
+    #         board.put_word(word, location, orientation)
 
 if __name__ == '__main__':
     unittest.main()

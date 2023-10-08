@@ -1,3 +1,14 @@
+## [0.0.15] - 7-10-2023
+
+## FIXED
+
+- Modified 'has_letters' method to receive a word instead of list of tiles
+- Exception handling implementation (WordOutOfBoard)
+
+## ADDED
+
+- Method 'is_playing' in ScrabbleGame class
+
 ## [0.0.15] - 4-10-2023
 
 ## ADDED

@@ -1,6 +1,13 @@
 from game.scrabble import ScrabbleGame
+# def show_player(player_index, player):
+#     print(f"player #{player_index}:{player.tiles}")
 
 def main():
+    # players_count = get_player_count()
+    # game = ScrabbleGame(players_count)
+    # while game.is_playing():
+    #     show_board()
+
     print("Bienvenido")
     while True:
         try:

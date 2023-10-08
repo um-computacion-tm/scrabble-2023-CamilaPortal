@@ -33,15 +33,10 @@ class TestPlayer(unittest.TestCase):
             Tile('O', 1),
             Tile('G', 1),
         ]
-        player_1 = Player(bag_tile)
-        tiles = [
-            Tile('H', 1),
-            Tile('O', 1),
-            Tile('L', 1),
-            Tile('A', 1)
-        ]
+        player = Player(bag_tile)
+        word="HOLA"
 
-        is_valid = player_1.has_letters(tiles)
+        is_valid = player.has_letters(word)
 
         self.assertEqual(is_valid, True)
     
@@ -57,14 +52,9 @@ class TestPlayer(unittest.TestCase):
             Tile(letter='M', value=1),
         ]
         player = Player(bag_tile)
-        tiles = [
-            Tile(letter='H', value=1),
-            Tile(letter='O', value=1),
-            Tile(letter='L', value=1),
-            Tile(letter='A', value=1),
-        ]
-
-        is_valid = player.has_letters(tiles)
+        
+        word="HOLA"
+        is_valid = player.has_letters(word)
 
         self.assertEqual(is_valid, False)
 

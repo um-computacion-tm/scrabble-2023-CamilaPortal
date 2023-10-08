@@ -1,7 +1,14 @@
 from game.cell import Cell
 from game.tiles import Tile
+from game.player import Player
 
 class SoloVoHParaLaOrientacion(Exception):
+    pass
+
+class WordOutOfBoard(Exception):
+    pass
+
+class NotEnoughLetters(Exception):
     pass
 
 class NoValid(Exception):
@@ -31,19 +38,19 @@ class Board:
     def validate_word_horizontal(self, word, location):
         x, y = location
         if x < 0 or x >= 15 or y < 0 or y + len(word) > 15:
-            return False
+            raise WordOutOfBoard(Exception)
         return True
 
     def validate_word_vertical(self, word, location):
         x, y = location
         if x < 0 or x + len(word) > 15 or y < 0 or y >= 15:
-            return False
+            raise WordOutOfBoard(Exception)
         return True
 
     def validate_word_inside_board(self, word, location, orientation):
-        if orientation == "H":
+        if orientation.lower() == "h":
             return self.validate_word_horizontal(word, location)
-        elif orientation == "V":
+        elif orientation.lower() == "v":
             return self.validate_word_vertical(word, location)
         else:
             raise SoloVoHParaLaOrientacion(Exception)
@@ -92,6 +99,9 @@ class Board:
             raise SoloVoHParaLaOrientacion(Exception)
         
     def put_word(self, word, location, orientation):
+        # if not Player.has_letters(self, tiles=word):
+        #     raise NotEnoughLetters(Exception)
+        
         if self.validate_word_inside_board(word, location, orientation) and self.validate_word_place_board(word, location, orientation):
             x, y = location
             if orientation.lower() == 'h':
