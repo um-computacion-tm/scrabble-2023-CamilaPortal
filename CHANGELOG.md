@@ -1,3 +1,9 @@
+## [0.0.16] - 8-10-2023
+
+## ADDED
+
+- Method 'draw_board' for the creation of the game board
+
 ## [0.0.15] - 7-10-2023
 
 ## FIXED

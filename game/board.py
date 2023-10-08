@@ -114,6 +114,20 @@ class Board:
                     self.grid[x + i][y].letter = tile
         else:
             raise NoValid(Exception)
+        
+    def draw_board(self):
+        board_str = "     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15\n"
+        for row_index, row in enumerate(self.grid, start=1):
+            row_str = f"{row_index:2}|  "
+            for cell in row:
+                if cell.active and cell.letter:
+                    row_str += f"{cell.letter} "
+                else:
+                    row_str += "_  "
+            board_str += row_str + "\n"
+        return board_str
+
+
 
 
 
