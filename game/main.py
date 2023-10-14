@@ -1,4 +1,14 @@
 from game.scrabble import ScrabbleGame
+# def get_player_count():
+#     while True:
+#         try:
+#             player_count= int(input("cantidad de jugadores: "))
+#             if player_count <=1 or player_count > 4:
+#                 break
+#         except Exception as e:
+#             print("Ingrese un numero entre 2 y 4")
+
+#             return player_count
 # def show_player(player_index, player):
 #     print(f"player #{player_index}:{player.tiles}")
 
@@ -6,7 +16,18 @@ def main():
     # players_count = get_player_count()
     # game = ScrabbleGame(players_count)
     # while game.is_playing():
-    #     show_board()
+    #     show_board(game.get_board())
+        # show_player(game.current_player, game.get_current_player())
+        # word, coords, orientation = get_inpunts()
+        # try:
+        #     change = get_change_input()
+        #     if change:
+        #         letters= get_change_input()
+        #         game.change(letters)
+        #     else:
+        #         word, coords, orientation = get_inputs()
+
+
 
     print("Bienvenido")
     while True:

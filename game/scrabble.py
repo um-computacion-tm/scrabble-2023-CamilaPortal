@@ -38,7 +38,7 @@ class ScrabbleGame:
     #     self.next_turn()
 
     # def next_turn(self):
-    #     self.current_player = self.bag_tiles
+    #     self.current_player = (self.current_player + 1)% len(self.players)
     
     # def validate_word(self, word, location, orientaiton):
     #     if not dict_validate_word(word):
@@ -47,3 +47,14 @@ class ScrabbleGame:
     #         raise InvalidPlaceWordException("ii")
     #     if not self.board.validate_word_place_board(word, location, orientaiton):
     #         raise InvalidPlaceWordException("")
+
+    # def change(self, letters):
+    #     self.get_current_player().take_tile_using_letters(letters)
+
+    # def play(self, word, location, orientation):
+    #     missing_lettes = self.validate_word(word, location, orientation)
+    #     words= self.board.put_word(word, location, orientation, self.get_current_player())
+    #     total=calculate_words_value(words)
+    #     self.get_current_player().fill()
+    #     self.get_current_player().score +=total
+    #     self.next_turn()

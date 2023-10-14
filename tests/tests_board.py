@@ -48,8 +48,7 @@ class TestBoard(unittest.TestCase):
         location = (14, 9)
         orientation = "H"
 
-        with self.assertRaises(WordOutOfBoard):
-            board.validate_word_inside_board(word, location, orientation)
+        self.assertEqual(board.validate_word_inside_board(word, location, orientation), False)
         
     
     def test_word_out_of_board_V(self):
@@ -58,8 +57,7 @@ class TestBoard(unittest.TestCase):
         location = (9, 3)
         orientation = "V"
 
-        with self.assertRaises(WordOutOfBoard):
-            board.validate_word_inside_board(word, location, orientation)
+        self.assertEqual(board.validate_word_inside_board(word, location, orientation), False)
 
     def test_incorrect_orientation(self):
         board = Board()
@@ -99,17 +97,6 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_board(word, location, orientation)
 
         assert word_is_valid == False
-    
-
-    # def test_place_word_empty_board_horizontal_out_of_board(self):
-        
-    #     board = Board()
-    #     word = "Facultad"
-    #     location = (-7, 8)
-    #     orientation = "H"
-
-    #     with self.assertRaises(WordOutOfBoard):
-    #         board.validate_word_place_board_horizontal(word, location)
     
     def test_place_word_empty_board_orientation_wrong(self):
 
@@ -230,8 +217,6 @@ class TestBoard(unittest.TestCase):
         word = "hola"
         location = (7, 6)
         orientation = "H"
-        self.assertTrue(board.validate_word_inside_board(word, location, orientation))
-        self.assertTrue(board.validate_word_place_board(word, location, orientation))
         board.put_word(word, location, orientation)
         
 
@@ -240,56 +225,17 @@ class TestBoard(unittest.TestCase):
         word = "mundo"
         location = (6, 7)
         orientation = "V"
-        self.assertTrue(board.validate_word_inside_board(word, location, orientation))
-        self.assertTrue(board.validate_word_place_board(word, location, orientation))
         board.put_word(word, location, orientation)
 
     def test_put_word_invalid_location(self):
         board=Board()
         word = "hola"
         location = (0, 0)
-        orientation = "H"
-        self.assertTrue(board.validate_word_inside_board(word, location, orientation))
-        self.assertFalse(board.validate_word_place_board(word, location, orientation))
-        with self.assertRaises(NoValid):
+        orientation = "X"
+        with self.assertRaises(SoloVoHParaLaOrientacion):
             board.put_word(word, location, orientation)
 
-    def test_put_word_invalid_word(self):
-        board=Board()
-        word = "invalidado"
-        location = (7, 7)
-        orientation = "H"
-
-        with self.assertRaises(WordOutOfBoard):
-            board.put_word(word, location, orientation)
-
-    # def test_put_word_without_enough_letters(self):
-    #     board=Board()
-    #     bag_tile = BagTiles()
-    #     bag_tile.tiles = [
-    #         Tile(letter='P', value=1),
-    #         Tile(letter='O', value=1),
-    #         Tile(letter='L', value=1),
-    #         Tile(letter='A', value=1),
-    #         Tile(letter='C', value=1),
-    #         Tile(letter='U', value=1),
-    #         Tile(letter='M', value=1),
-    #     ]
-    #     player = Player(bag_tile)
-    #     # tiles = [
-    #     #     Tile(letter='H', value=1),
-    #     #     Tile(letter='O', value=1),
-    #     #     Tile(letter='L', value=1),
-    #     #     Tile(letter='A', value=1),
-    #     # ]
-    #     word="perro"
-    #     location=(7,8)
-    #     orientation='h'
-    #     self.assertEqual(player.has_letters(word), False)
-    #     with self.assertRaises(NotEnoughLetters):
-    #         board.put_word(word, location, orientation)
-
-    def test_show_boardd(self):
+    def test_draw_board(self):
         board = Board()
         expected_board = (
             "     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15\n"

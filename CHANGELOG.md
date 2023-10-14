@@ -1,3 +1,10 @@
+## [0.0.16] - 14-10-2023
+
+## FIXED
+
+- Methods 'set_cell_multiplier' and 'set_multipliers'
+- Method 'put_word'
+
 ## [0.0.16] - 8-10-2023
 
 ## ADDED

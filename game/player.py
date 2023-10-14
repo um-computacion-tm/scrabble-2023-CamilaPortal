@@ -7,7 +7,7 @@ class Player:
         self.tiles = bag_tiles.take(7)
         self.bag_tiles = bag_tiles
     
-    def rellenar(self):
+    def rellenar(self):  #fill
         self.tiles += self.bag_tiles.take(7 - len(self.tiles))
 
     def has_letters(self, word):
@@ -18,3 +18,5 @@ class Player:
             if letter not in player_tiles_counts or count > player_tiles_counts[letter]:
                 return False
         return True
+    
+    #def take_tile_using_letters()
