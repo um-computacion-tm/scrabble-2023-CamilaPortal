@@ -1,3 +1,9 @@
+## [0.0.16] - 16-10-2023
+
+## ADDED
+
+- Creation of 'get_player_count' function in main.py
+
 ## [0.0.16] - 14-10-2023
 
 ## FIXED
