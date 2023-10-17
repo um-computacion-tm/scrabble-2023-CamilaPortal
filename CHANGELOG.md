@@ -1,3 +1,13 @@
+## [0.0.17] - 17-10-2023
+
+## ADDED
+
+- Creation of '__repr__' methods for cells and tiles
+
+## FIXED
+
+- 'show_board' moved to main.py
+
 ## [0.0.16] - 16-10-2023
 
 ## ADDED

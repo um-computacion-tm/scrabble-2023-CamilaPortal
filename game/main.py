@@ -1,4 +1,6 @@
 from game.scrabble import ScrabbleGame
+from game.board import Board
+from game.cell import Cell
 
 def get_player_count():
     while True:
@@ -11,18 +13,27 @@ def get_player_count():
 
     return player_count
 
+def show_board(board):
+    print('\n  |' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
+    for row_index, row in enumerate(board.grid):
+        print(
+            str(row_index).rjust(2) +
+            '| ' +
+            ' '.join([repr(cell) for cell in row])
+        )
+
         
-# def show_player(player_index, player):
-#     print(f"player #{player_index}:{player.tiles}")
+def show_player(player_index, player):
+    print(f"player #{player_index}:{player.tiles}")
 
 
 def main():
     ...
     # players_count = get_player_count()
-#     game = ScrabbleGame(players_count)
-#     while game.is_playing():
-#         show_board(game.get_board())
-#         show_player(game.current_player, game.get_current_player())
+    # game = ScrabbleGame(players_count)
+    # while game.is_playing():
+    #     show_board(game.get_board())
+    #     show_player(game.current_player, game.get_current_player())
         # word, coords, orientation = get_inpunts()
         # try:
         #     change = get_change_input()

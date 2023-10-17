@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch
-from game.main import get_player_count
+from game.main import get_player_count, show_board
+from game.cell import Cell
+from game.board import Board
 
 class TestCLI(unittest.TestCase):
 
@@ -26,6 +28,7 @@ class TestCLI(unittest.TestCase):
             get_player_count(),
             2,
         )
+
 
 if __name__ == '__main__':
     unittest.main()

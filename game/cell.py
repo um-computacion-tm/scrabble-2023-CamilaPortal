@@ -30,5 +30,13 @@ class Cell:
             total_value += cell_value
 
         return total_value * word_multiplier
+
+    def __repr__(self):
+        if self.letter:
+            return repr(self.letter)
+        if self.multiplier > 1:
+            return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
+        else:
+            return '   '
         
     

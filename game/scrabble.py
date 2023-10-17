@@ -27,8 +27,8 @@ class ScrabbleGame:
     # def get_current_player(self):
     #     return self.current_player, self.players
     
-    # def get_board(self):
-    #     return self.board
+    def get_board(self):
+        return self.board
     
     # def play(self, word, location, orientation):
     #     self.validate_word(word, location, orientation)

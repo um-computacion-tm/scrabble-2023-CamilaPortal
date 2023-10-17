@@ -22,6 +22,9 @@ class Tile:
             self.letter = new_letter
         else:
             raise NoEsUnJoker(Exception)
+        
+    def __repr__(self):
+        return f"{self.letter}:{self.value}"
 
 class BagTiles:
     def __init__(self):
