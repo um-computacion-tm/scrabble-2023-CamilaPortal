@@ -24,8 +24,8 @@ class ScrabbleGame:
     def is_playing(self):
         return True
     
-    # def get_current_player(self):
-    #     return self.current_player, self.players
+    def get_current_player(self):
+        return self.current_player, self.players
     
     def get_board(self):
         return self.board
@@ -41,7 +41,7 @@ class ScrabbleGame:
     #     self.current_player = (self.current_player + 1)% len(self.players)
     
     # def validate_word(self, word, location, orientaiton):
-    #     if not dict_validate_word(word):
+    #     if not dict_validate_word(word):         dictionary.py
     #         raise InvalidWord("no existe")
     #     if not self.board.validate_word_inside_board(word, location, orientaiton):
     #         raise InvalidPlaceWordException("ii")

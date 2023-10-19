@@ -110,16 +110,13 @@ class Board:
             raise SoloVoHParaLaOrientacion(Exception)
         
     def put_word(self, word, location, orientation):
-
         x, y = location
         if orientation.lower() == 'h':
-            for i, letter in enumerate(word):
-                tile = Tile(letter, value=any)  
-                self.grid[x][y + i].letter = tile
+            for i, tile in enumerate(word):
+                self.grid[x][y + i].add_letter(tile)
         elif orientation.lower() == 'v':
-            for i, letter in enumerate(word):
-                tile = Tile(letter, value=any)
-                self.grid[x + i][y].letter = tile
+            for i, tile in enumerate(word):
+                self.grid[x + i][y].add_letter(tile)
         else:
             raise SoloVoHParaLaOrientacion(Exception)
         

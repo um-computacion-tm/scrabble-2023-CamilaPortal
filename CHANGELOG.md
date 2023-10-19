@@ -1,3 +1,16 @@
+## [0.0.17] - 18-10-2023
+
+## FIXED
+
+- Functions in main.py converted to methods 
+- Improved 'put_word' method and tests
+- Improved 'show_board'method
+- Droped tiles: 'CH', 'LL'
+
+## ADDED
+
+- Dockerfile
+
 ## [0.0.17] - 17-10-2023
 
 ## ADDED
