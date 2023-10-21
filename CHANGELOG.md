@@ -1,3 +1,14 @@
+## [0.0.17] - 21-10-2023
+
+## ADDED
+
+- Method '__str__' added to player.py
+
+## FIXED
+
+- Improved ScrabbleGame class
+- Improved Player class
+
 ## [0.0.17] - 18-10-2023
 
 ## FIXED

@@ -23,20 +23,20 @@ class Main:
             print(row_str)
             print("   |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|")
 
-
             
-    # def show_player(self, player_index, player):
-    #     print(f"player #{player_index}:{player.tiles}")
-
+    def show_player(self, player_index, player):
+        print(f"player #{player_index}:{player.tiles}")
 
     def play(self):
         ...
         
-        # players_count = self.get_player_count()
-        # game = ScrabbleGame(players_count)
-        # while game.is_playing():
-        #     self.show_board(game.get_board())
-        #     self.show_player(game.current_player, game.get_current_player())
+        players_count = self.get_player_count()
+        print(players_count)
+        game = ScrabbleGame(players_count)
+        game.next_turn()
+        while game.is_playing():
+            self.show_board(game.get_board())
+            self.show_player(game.current_player, game.get_current_player()[0])
             # word, coords, orientation = get_inpunts()
             # try:
             #     change = get_change_input()
