@@ -8,6 +8,7 @@
 
 - Improved ScrabbleGame class
 - Improved Player class
+- Improved main
 
 ## [0.0.17] - 18-10-2023
 
