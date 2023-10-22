@@ -7,26 +7,28 @@ class ScrabbleGame:
         self.board = Board()
         self.bag_tiles = BagTiles()
         self.players = []
-        for index in range(players_count):
-            self.players.append(Player(index + 1, self.bag_tiles))
-
-        
-        self.current_player = None
+        for _ in range(players_count):
+            self.players.append(Player( self.bag_tiles))
     
+        self.current_player = 0
+    
+    # def next_turn(self):
+    #     if self.current_player is None:
+    #         self.current_player= self.players[0]
+    #     elif self.current_player == self.players[-1]:
+    #         self.current_player=self.players[0]
+    #     else:
+    #         index = self.players.index(self.current_player) + 1
+    #         self.current_player = self.players[index]
+
     def next_turn(self):
-        if self.current_player is None:
-            self.current_player= self.players[0]
-        elif self.current_player == self.players[-1]:
-            self.current_player=self.players[0]
-        else:
-            index = self.players.index(self.current_player) + 1
-            self.current_player = self.players[index]
+        self.current_player = (self.current_player + 1)% len(self.players)
     
     def is_playing(self):
         return True
     
     def get_current_player(self):
-        return self.current_player, self.players
+        return self.players[self.current_player]
     
     def get_board(self):
         return self.board
@@ -38,8 +40,6 @@ class ScrabbleGame:
     #     self.players[self.current_player].score += total
     #     self.next_turn()
 
-    # def next_turn(self):
-    #     self.current_player = (self.current_player + 1)% len(self.players)
     
     # def validate_word(self, word, location, orientaiton):
     #     if not dict_validate_word(word):         dictionary.py

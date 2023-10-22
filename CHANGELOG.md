@@ -1,3 +1,10 @@
+## [0.0.17] - 22-10-2023
+
+## FIXED
+
+- Improved 'next_turn' method
+- Code coverage: scrabble.py and main.py
+
 ## [0.0.17] - 21-10-2023
 
 ## ADDED

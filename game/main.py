@@ -25,10 +25,9 @@ class Main:
 
             
     def show_player(self, player_index, player):
-        print(f"player #{player_index}:{player.tiles}")
+        print(f"Player #{player_index}:{player.tiles}")
 
     def play(self):
-        ...
         
         players_count = self.get_player_count()
         print(players_count)
@@ -36,7 +35,7 @@ class Main:
         game.next_turn()
         while game.is_playing():
             self.show_board(game.get_board())
-            self.show_player(game.current_player, game.get_current_player()[0])
+            self.show_player(game.current_player, game.get_current_player())
             # word, coords, orientation = get_inpunts()
             # try:
             #     change = get_change_input()

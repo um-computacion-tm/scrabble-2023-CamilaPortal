@@ -3,8 +3,7 @@ from game.tiles import Tile
 
 class Player:
 
-    def __init__(self,player_index,bag_tiles=BagTiles()):
-        self.player_index = player_index
+    def __init__(self, bag_tiles=BagTiles()):
         self.tiles = bag_tiles.take(7)
         self.bag_tiles = bag_tiles
     
@@ -20,7 +19,7 @@ class Player:
                 return False
         return True
     
-    def __str__(self):
-        return f"{self.player_index}"
+    # def __str__(self):
+    #     return f"{self.player_index}"
     
     #def take_tile_using_letters()
