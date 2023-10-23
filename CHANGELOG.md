@@ -1,4 +1,88 @@
-## [0.0.14] - 1-09-2023
+## [0.0.17] - 23-10-2023
+
+## FIXED
+
+- Removing issues in CodeClimate
+
+## [0.0.17] - 22-10-2023
+
+## FIXED
+
+- Improved 'next_turn' method
+- Code coverage: scrabble.py and main.py
+
+## [0.0.17] - 21-10-2023
+
+## ADDED
+
+- Method '__str__' added to player.py
+
+## FIXED
+
+- Improved ScrabbleGame class
+- Improved Player class
+- Improved main
+
+## [0.0.17] - 18-10-2023
+
+## FIXED
+
+- Functions in main.py converted to methods 
+- Improved 'put_word' method and tests
+- Improved 'show_board'method
+- Droped tiles: 'CH', 'LL'
+
+## ADDED
+
+- Dockerfile
+
+## [0.0.17] - 17-10-2023
+
+## ADDED
+
+- Creation of '__repr__' methods for cells and tiles
+
+## FIXED
+
+- 'show_board' moved to main.py
+
+## [0.0.16] - 16-10-2023
+
+## ADDED
+
+- Creation of 'get_player_count' function in main.py
+
+## [0.0.16] - 14-10-2023
+
+## FIXED
+
+- Methods 'set_cell_multiplier' and 'set_multipliers'
+- Method 'put_word'
+
+## [0.0.16] - 8-10-2023
+
+## ADDED
+
+- Method 'draw_board' for the creation of the game board
+
+## [0.0.15] - 7-10-2023
+
+## FIXED
+
+- Modified 'has_letters' method to receive a word instead of list of tiles
+- Exception handling implementation (WordOutOfBoard)
+
+## ADDED
+
+- Method 'is_playing' in ScrabbleGame class
+
+## [0.0.15] - 4-10-2023
+
+## ADDED
+
+- Method 'put_word' responsible for placing a word on the game board based on the given word, location, and orientation.
+
+## [0.0.14] - 1-10-2023
 
 ## ADDED
 

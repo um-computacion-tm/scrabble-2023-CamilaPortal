@@ -1,7 +1,8 @@
 import unittest
-from game.board import Board, SoloVoHParaLaOrientacion
-from game.tiles import Tile
+from game.board import Board, SoloVoHParaLaOrientacion, NoValid, WordOutOfBoard, NotEnoughLetters
+from game.tiles import Tile, BagTiles
 from game.cell import Cell
+from game.player import Player
 
 
 class TestBoard(unittest.TestCase):
@@ -20,6 +21,11 @@ class TestBoard(unittest.TestCase):
         board = Board()
         self.assertEqual(board.grid[0][0].multiplier_type, 'word')
         self.assertEqual(board.grid[0][0].multiplier, 3)
+    
+    def test_initial_board_setup2(self):
+        board = Board()
+        self.assertEqual(board.grid[1][1].multiplier_type, 'word')
+        self.assertEqual(board.grid[1][1].multiplier, 2)
 
     def test_word_inside_board_H(self):
         board = Board()
@@ -47,9 +53,7 @@ class TestBoard(unittest.TestCase):
         location = (14, 9)
         orientation = "H"
 
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-        assert word_is_valid == False
+        self.assertEqual(board.validate_word_inside_board(word, location, orientation), False)
         
     
     def test_word_out_of_board_V(self):
@@ -58,9 +62,7 @@ class TestBoard(unittest.TestCase):
         location = (9, 3)
         orientation = "V"
 
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
-        assert word_is_valid == False
+        self.assertEqual(board.validate_word_inside_board(word, location, orientation), False)
 
     def test_incorrect_orientation(self):
         board = Board()
@@ -171,9 +173,8 @@ class TestBoard(unittest.TestCase):
         location = (8, 6)
         orientation = "H"
 
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
-
-        self.assertEqual(word_is_valid, False)
+        with self.assertRaises(WordOutOfBoard):
+            board.validate_word_place_board(word, location, orientation)
 
     def test_place_word_not_empty_board_vertical_fine(self):
         board = Board()
@@ -213,9 +214,71 @@ class TestBoard(unittest.TestCase):
         location = (6, 8)
         orientation = "V"
 
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        with self.assertRaises(WordOutOfBoard):
+            board.validate_word_place_board(word, location, orientation)
 
-        self.assertEqual(word_is_valid, False)
+    def test_put_word_horizontal_valid(self):
+        board=Board()
+        word = [Tile('H', 4), Tile('O', 1), Tile('L', 1), Tile('A', 1)]
+        location = (7, 6)
+        orientation = "H"
+        board.put_word(word, location, orientation)
+
+        self.assertEqual(board.grid[7][6].letter.letter, 'H')
+        self.assertEqual(board.grid[7][6].letter.value, 4)
+
+        self.assertEqual(board.grid[7][7].letter.letter, 'O')
+        self.assertEqual(board.grid[7][7].letter.value, 1)
+
+        self.assertEqual(board.grid[7][8].letter.letter, 'L')
+        self.assertEqual(board.grid[7][8].letter.value, 1)
+
+        self.assertEqual(board.grid[7][9].letter.letter, 'A')
+        self.assertEqual(board.grid[7][9].letter.value, 1)
+        
+
+    def test_put_word_vertical_valid(self):
+        board=Board()
+        word = [Tile('N', 1), Tile('O', 1)]
+        location = (6, 7)
+        orientation = "V"
+        board.put_word(word, location, orientation)
+        self.assertEqual(board.grid[6][7].letter.letter, 'N')
+        self.assertEqual(board.grid[6][7].letter.value, 1)
+
+        self.assertEqual(board.grid[7][7].letter.letter, 'O')
+        self.assertEqual(board.grid[7][7].letter.value, 1)
+
+    def test_put_word_invalid_location(self):
+        board=Board()
+        word = [Tile('N', 1), Tile('O', 1)]
+        location = (0, 0)
+        orientation = "X"
+        with self.assertRaises(SoloVoHParaLaOrientacion):
+            board.put_word(word, location, orientation)
+
+    # def test_draw_board(self):
+    #     board = Board()
+    #     expected_board = (
+    #         "     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15\n"
+    #         " 1|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 2|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 3|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 4|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 5|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 6|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 7|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 8|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         " 9|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         "10|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         "11|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         "12|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         "13|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         "14|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #         "15|  _  _  _  _  _  _  _  _  _  _  _  _  _  _  _  \n"
+    #     )
+    #     result_board = board.draw_board()
+    #     self.assertEqual(result_board, expected_board)
 
 if __name__ == '__main__':
     unittest.main()
