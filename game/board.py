@@ -71,14 +71,17 @@ class Board:
             return True
         return False
 
+    def can_place_word_at_start(self, x, y, word):
+        if y <= 7 < y + len(word) and x == 7:
+            return True
+        return False
+
     def validate_word_place_board_horizontal(self, word, location):
         x, y = location
         if not self.validate_word_inside_board(word, location, "H"):
             raise WordOutOfBoard(Exception)
-        if self.is_empty() is True:
-            if y <= 7 < y + len(word) and x == 7:
-                return True
-            return False
+        if self.is_empty():
+            return self.can_place_word_at_start(x, y, word)
         elif self.is_empty() is False:
             for i in range(len(word)):
                 if self.grid[x][y + i].letter is not None:
@@ -90,10 +93,8 @@ class Board:
         x, y = location
         if not self.validate_word_inside_board(word, location, "V"):
             raise WordOutOfBoard(Exception)
-        if self.is_empty() is True:
-            if x <= 7 < x + len(word) and y == 7:
-                return True
-            return False
+        if self.is_empty():
+            return self.can_place_word_at_start(y, x, word)
         elif self.is_empty() is False:
             for i in range(len(word)):
                 if self.grid[x + i][y].letter is not None:

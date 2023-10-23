@@ -1,3 +1,9 @@
+## [0.0.17] - 23-10-2023
+
+## FIXED
+
+- Removing issues in CodeClimate
+
 ## [0.0.17] - 22-10-2023
 
 ## FIXED
