@@ -30,12 +30,12 @@ class Main:
     def play(self):
         
         players_count = self.get_player_count()
-        print(players_count)
         game = ScrabbleGame(players_count)
         game.next_turn()
         while game.is_playing():
             self.show_board(game.get_board())
             self.show_player(game.current_player, game.get_current_player())
+            break
             # word, coords, orientation = get_inpunts()
             # try:
             #     change = get_change_input()

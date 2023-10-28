@@ -1,5 +1,5 @@
 import unittest
-from game.scrabble import ScrabbleGame
+from game.scrabble import ScrabbleGame, InvalidWord, InvalidPlaceWordException
 from game.board import Board
 from game.player import Player
 
@@ -50,6 +50,26 @@ class TestScrabbleGame(unittest.TestCase):
         board= scrabble_game.get_board()
         self.assertIsNotNone(board)
         self.assertIsInstance(board, Board)
+
+    def test_valid_word(self):
+        scrabble_game = ScrabbleGame(3)  
+        result = scrabble_game.validate_word("PALABRA", (7, 7), "H")
+        self.assertEqual(result, None)
+
+    def test_invalid_word_not_in_dict(self):
+        scrabble_game = ScrabbleGame(3)
+        with self.assertRaises(InvalidWord):
+            scrabble_game.validate_word("ASD", (7, 7), "H")
+    
+    def test_invalid_word_not_inside_board(self):
+        scrabble_game = ScrabbleGame(3)
+        with self.assertRaises(InvalidPlaceWordException):
+            scrabble_game.validate_word("PALABRA", (10, 10), "H")
+
+    def test_invalid_word_cannot_place(self):
+        scrabble_game = ScrabbleGame(3)
+        with self.assertRaises(InvalidPlaceWordException):
+            scrabble_game.validate_word("PALABRA", (0, 0), "H")
 
 
 

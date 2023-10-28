@@ -1,3 +1,9 @@
+## [0.0.18] - 28-10-2023
+
+## ADDED
+
+- Method 'validate_word' to validate if the word exists, if it fits on the board and if is possible put it there
+
 ## [0.0.17] - 23-10-2023
 
 ## FIXED
