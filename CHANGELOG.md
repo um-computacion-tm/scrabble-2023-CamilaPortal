@@ -1,3 +1,10 @@
+## [0.0.18] - 29-10-2023
+
+## ADDED
+
+- Creation of a menu for possible actions of a player in main.py
+- Creation of method 'pass_turn' to skip turn
+
 ## [0.0.18] - 28-10-2023
 
 ## ADDED

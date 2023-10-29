@@ -27,15 +27,33 @@ class Main:
     def show_player(self, player_index, player):
         print(f"Player #{player_index}:{player.tiles}")
 
+    def pass_turn(self, game):
+        game.next_turn()
+
     def play(self):
         
         players_count = self.get_player_count()
         game = ScrabbleGame(players_count)
         game.next_turn()
+        menu_options = {
+            #'1': self.play_word,
+            '2': self.pass_turn
+        }
         while game.is_playing():
             self.show_board(game.get_board())
             self.show_player(game.current_player, game.get_current_player())
-            break
+            print("\nMenu:")
+            print("1. Jugar palabra")
+            print("2. Pasar turno")
+
+            choice = input("Seleccione una opción: ")
+
+            selected_option = menu_options.get(choice)
+            if selected_option:
+                selected_option(game)
+            else:
+                print("Opción inválida. Por favor, seleccione una opción válida.")
+            
             # word, coords, orientation = get_inpunts()
             # try:
             #     change = get_change_input()
