@@ -6,8 +6,9 @@ class Player:
     def __init__(self, bag_tiles=BagTiles()):
         self.tiles = bag_tiles.take(7)
         self.bag_tiles = bag_tiles
+        self.score = 0
     
-    def rellenar(self):  #fill
+    def rellenar(self):
         self.tiles += self.bag_tiles.take(7 - len(self.tiles))
 
     def has_letters(self, word):

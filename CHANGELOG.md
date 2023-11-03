@@ -1,3 +1,18 @@
+## [0.0.19] - 3-11-2023
+
+## ADDED
+
+- Method 'get_tile_value' in ScrabbleGame to get the value of a tile.
+- Method 'get_coordinates_for_index' in ScrabbleGame used to convert an index into the coordinates of the board. Implemented to be used in 'get_score'.
+- Method 'get_score' in ScrabbleGame to get the score of the words played.
+- Method 'play' in ScrabbleGame that gathers everything necessary to play (validations, score calculation, etc.).
+- Method 'deactivate_cell' in Board to deactivate a multiplier.
+- Attribute 'score' added to Player
+
+## ATTEMPT
+
+- Working on modifying the implemented methods to calculate points.
+
 ## [0.0.18] - 29-10-2023
 
 ## ADDED

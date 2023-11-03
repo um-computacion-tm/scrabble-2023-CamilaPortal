@@ -2,6 +2,8 @@ import unittest
 from game.scrabble import ScrabbleGame, InvalidWord, InvalidPlaceWordException
 from game.board import Board
 from game.player import Player
+from game.cell import Cell
+from game.tiles import Tile
 
 class TestScrabbleGame(unittest.TestCase):
 
@@ -70,6 +72,43 @@ class TestScrabbleGame(unittest.TestCase):
         scrabble_game = ScrabbleGame(3)
         with self.assertRaises(InvalidPlaceWordException):
             scrabble_game.validate_word("PALABRA", (0, 0), "H")
+
+    def test_put_word_and_get_score(self):
+        scrabble_game = ScrabbleGame(3)
+        scrabble_game.board.put_word("CASA", (0, 0), 'H')
+        self.assertEqual(scrabble_game.get_score('CASA', (0, 0), 'H'), 21)
+
+        scrabble_game.board.put_word("GATO", (1, 2), 'V')
+        self.assertEqual(scrabble_game.get_score('GATO', (1, 2), 'V'), 10)
+
+    def test_valid_word_placement(self):
+        scrabble_game = ScrabbleGame(3)
+        word = "HOLA"
+        location = (7, 7)
+        orientation = "H"
+        initial_score_player1 = scrabble_game.players[0].score
+        scrabble_game.play(word, location, orientation)
+        final_score_player1 = scrabble_game.players[0].score
+        final_score_player2 = scrabble_game.players[1].score
+        final_score_player3 = scrabble_game.players[2].score
+
+        self.assertEqual(initial_score_player1, 0)
+        self.assertEqual(final_score_player1, 7)
+
+        self.assertEqual(final_score_player2, 0)
+        self.assertEqual(final_score_player3, 0)
+
+    # def test_deactivate_cells_after_play(self):
+    #     scrabble_game = ScrabbleGame(2)
+    #     scrabble_game.play("CREMA", (7, 7), 'H')
+
+    #     self.assertEqual(scrabble_game.players[0].score, 10)
+    #     #self.assertEqual(scrabble_game.board.grid[7][11].active, False)
+
+    #     scrabble_game.play("S", (7, 12), 'H')
+    #     self.assertEqual(scrabble_game.players[1].score, 8)
+
+
 
 
 

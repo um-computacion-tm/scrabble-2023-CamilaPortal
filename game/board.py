@@ -45,6 +45,9 @@ class Board:
         for coordinate in DOUBLE_LETTER_SCORE:
             self.set_cell_multiplier(coordinate, "letter", 2)
     
+    def deactivate_cell(self, row, col):
+        self.grid[row][col].multiplier = 1
+        self.grid[row][col].multiplier_type = ""
 
     def validate_word_horizontal(self, word, location):
         x, y = location
