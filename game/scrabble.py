@@ -14,10 +14,10 @@ class ScrabbleGame:
     def __init__(self, players_count):
         self.board = Board()
         self.bag_tiles = BagTiles()
+        self.player= Player()
         self.players = []
         for _ in range(players_count):
-            self.players.append(Player( self.bag_tiles))
-    
+            self.players.append(Player(bag_tiles=self.bag_tiles))   
         self.current_player = 0
 
     def next_turn(self):
@@ -31,67 +31,25 @@ class ScrabbleGame:
     
     def get_board(self):
         return self.board
-    
         
-    def validate_word(self, word, location, orientaiton):
+    def validate_word(self, word, location, orientation):
+        word = word.upper()
         if not validate_word_dict(word):
             raise InvalidWord("No existe la palabra")
-        if not self.board.validate_word_inside_board(word, location, orientaiton):
+        if not self.board.validate_word_inside_board(word, location, orientation):
             raise InvalidPlaceWordException("No es correcta la ubicación")
-        if not self.board.validate_word_place_board(word, location, orientaiton):
+        if not self.board.validate_word_place_board(word, location, orientation):
             raise InvalidPlaceWordException("No se puede colocar")
     
-    def get_tile_value(self, letter):
-        for tile in self.bag_tiles.tiles:
-            if tile.letter == letter:
-                return tile.value
-        return 0
-    
-    def get_coordinates_for_index(self, location, orientation, index):
-        x, y = location
-        if orientation.lower() == 'h':
-            return x, y + index
-        elif orientation.lower() == 'v':
-            return x + index, y
-        else:
-            raise ValueError("Orientación no válida")
-    
-    def get_score(self, word, location, orientation):
-        total_score = 0
-        word_multiplier = 1
-
-        for i, letter in enumerate(word.upper()):
-            row, col = self.get_coordinates_for_index(location, orientation, i)
-            tile_value = self.get_tile_value(letter)
-
-            cell = self.board.grid[row][col]
-
-            if cell.active:
-                cell = Cell(letter=Tile(letter, tile_value),
-                            multiplier_type=cell.multiplier_type,
-                            multiplier=cell.multiplier)
-                cell_value = cell.calculate_value()
-                total_score += cell_value
-
-                if cell.multiplier_type == 'word':
-                    word_multiplier *= cell.multiplier
-
-        return total_score * word_multiplier
-        
     def play(self, word, location, orientation):
+   
         self.validate_word(word, location, orientation)
+        self.player.has_letters(word)
         self.board.put_word(word, location, orientation)
-        total_score = self.get_score(word, location, orientation)
-
-        self.players[self.current_player].rellenar()
+        word_cells = self.board.get_word_cells(word, location, orientation) 
+        total_score = self.board.calculate_word_value(word_cells)
         self.players[self.current_player].score += total_score
-
-        x, y = location
-        for i in range(len(word)):
-            if orientation == 'H':
-                self.board.deactivate_cell(x, y + i)
-            else:
-                self.board.deactivate_cell(x + i, y)
+        self.players[self.current_player].rellenar()
         self.next_turn()
 
     

@@ -19,24 +19,35 @@ class Main:
         print("   |  " + "  |  ".join(str(item) for item in range(10)) + "  | " + "  | ".join(str(item) for item in range(10, 15)) + " |")
         print("   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _")
         for i, row in enumerate(board.grid):
-            row_str = f"{i:2d} | " + " | ".join(str(cell) for cell in row) + " |"
+            row_str = f"{i:2d} | " + " | ".join(repr(cell) for cell in row) + " |"
             print(row_str)
             print("   |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|")
 
             
     def show_player(self, player_index, player):
-        print(f"Player #{player_index}:{player.tiles}")
+        print(f"Player #{player_index}:{player.tiles} score: {player.score}")
+
+    def play_word(self, game):
+        word = input("Ingrese la palabra: ")
+        location_x = int(input("Ingrese la posición de la fila: "))
+        location_y = int(input("Ingrese la posición de la columna: "))
+        location = location_x,location_y
+        orientation = input("Ingrese la orientación (H para horizontal, V para vertical): ")
+        orientation.upper()
+        try:
+            game.play(word, location, orientation)
+        except Exception as e:
+            print(f"Error: {e}")
 
     def pass_turn(self, game):
         game.next_turn()
 
     def play(self):
-        
+        print("BIENVENIDO A SCRABBLE GAME")
         players_count = self.get_player_count()
         game = ScrabbleGame(players_count)
-        game.next_turn()
         menu_options = {
-            #'1': self.play_word,
+            '1': self.play_word,
             '2': self.pass_turn
         }
         while game.is_playing():

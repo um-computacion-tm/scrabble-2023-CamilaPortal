@@ -1,3 +1,23 @@
+## [0.0.20] - 7-11-2023
+
+## FIXED
+
+- Method 'calculate_word_value' moved to Board class 
+- method 'play' working correctly in Scrabble class
+- Method 'put_word'
+
+## ADDED 
+
+- Method 'get_word_cells' to transform a word in a list of cells
+- Dictionary that contains the values of each letter (added to class Cell and Board)
+- Method 'play_word' in main.py 
+
+## REMOVED
+
+- Method 'get_tile_value'
+- Method 'get_coordinates_for_index'
+- Method 'deactivate_cell'
+
 ## [0.0.19] - 3-11-2023
 
 ## ADDED

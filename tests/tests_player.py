@@ -23,27 +23,10 @@ class TestPlayer(unittest.TestCase):
 
 
     def test_validate_user_has_letters(self):
-        bag_tile = BagTiles()
-        bag_tile.tiles = [
-            Tile('H', 1),
-            Tile('O', 1),
-            Tile('L', 1),
-            Tile('A', 1),
-            Tile('M', 1),
-            Tile('O', 1),
-            Tile('G', 1),
-        ]
-        player = Player(bag_tile)
-        word="HOLA"
-
-        is_valid = player.has_letters(word)
-
-        self.assertEqual(is_valid, True)
-    
-    def test_validate_fail_when_user_has_not_letters(self):
-        bag_tile = BagTiles()
-        bag_tile.tiles = [
-            Tile(letter='P', value=1),
+        bag_tiles = BagTiles()
+        player = Player(bag_tiles)
+        player.tiles = [
+            Tile(letter='H', value=1),
             Tile(letter='O', value=1),
             Tile(letter='L', value=1),
             Tile(letter='A', value=1),
@@ -51,12 +34,58 @@ class TestPlayer(unittest.TestCase):
             Tile(letter='U', value=1),
             Tile(letter='M', value=1),
         ]
-        player = Player(bag_tile)
-        
-        word="HOLA"
-        is_valid = player.has_letters(word)
+        word = 'HOLA'
+        result = player.has_letters(word)
+        self.assertTrue(result)
+        self.assertEqual(len(player.tiles), 3)
+    
+    def test_has_not_letters(self):
+        bag_tiles = BagTiles()
+        player = Player(bag_tiles)
+        player.tiles = [
+            Tile(letter='H', value=1),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+            Tile(letter='C', value=1),
+            Tile(letter='U', value=1),
+            Tile(letter='M', value=1),
+        ]
+        word = 'GOOD'
+        result = player.has_letters(word)
+        self.assertFalse(result)
 
-        self.assertEqual(is_valid, False)
+    def test_has_letters_with_duplicate_letters(self):
+        bag_tiles = BagTiles()
+        player = Player(bag_tiles)
+        player.tiles = [
+            Tile(letter='H', value=1),
+            Tile(letter='B', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+            Tile(letter='C', value=1),
+            Tile(letter='U', value=1),
+            Tile(letter='D', value=1),
+        ]
+        word = 'BAD'
+        result = player.has_letters(word)
+        self.assertTrue(result)
+
+    def test_has_letters_with_insufficient_duplicate_letters(self):
+        bag_tiles = BagTiles()
+        player = Player(bag_tiles)
+        player.tiles = [
+            Tile(letter='G', value=1),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+            Tile(letter='D', value=1),
+            Tile(letter='U', value=1),
+            Tile(letter='M', value=1),
+        ]
+        word = 'GOOD'
+        result = player.has_letters(word)
+        self.assertFalse(result)
 
 
 if __name__ == '__main__':

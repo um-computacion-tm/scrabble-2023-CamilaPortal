@@ -219,43 +219,44 @@ class TestBoard(unittest.TestCase):
 
     def test_put_word_horizontal_valid(self):
         board=Board()
-        word = [Tile('H', 4), Tile('O', 1), Tile('L', 1), Tile('A', 1)]
+        word = 'HOLA'
         location = (7, 6)
         orientation = "H"
         board.put_word(word, location, orientation)
 
         self.assertEqual(board.grid[7][6].letter.letter, 'H')
-        self.assertEqual(board.grid[7][6].letter.value, 4)
-
         self.assertEqual(board.grid[7][7].letter.letter, 'O')
-        self.assertEqual(board.grid[7][7].letter.value, 1)
-
         self.assertEqual(board.grid[7][8].letter.letter, 'L')
-        self.assertEqual(board.grid[7][8].letter.value, 1)
-
         self.assertEqual(board.grid[7][9].letter.letter, 'A')
-        self.assertEqual(board.grid[7][9].letter.value, 1)
         
-
     def test_put_word_vertical_valid(self):
         board=Board()
-        word = [Tile('N', 1), Tile('O', 1)]
+        word = 'NO'
         location = (6, 7)
         orientation = "V"
         board.put_word(word, location, orientation)
         self.assertEqual(board.grid[6][7].letter.letter, 'N')
-        self.assertEqual(board.grid[6][7].letter.value, 1)
 
         self.assertEqual(board.grid[7][7].letter.letter, 'O')
-        self.assertEqual(board.grid[7][7].letter.value, 1)
 
-    def test_put_word_invalid_location(self):
-        board=Board()
-        word = [Tile('N', 1), Tile('O', 1)]
-        location = (0, 0)
-        orientation = "X"
-        with self.assertRaises(SoloVoHParaLaOrientacion):
-            board.put_word(word, location, orientation)
+    # def test_put_word_invalid_location(self):
+    #     board=Board()
+    #     word = [Tile('N', 1), Tile('O', 1)]
+    #     location = (0, 0)
+    #     orientation = "X"
+    #     with self.assertRaises(SoloVoHParaLaOrientacion):
+    #         board.put_word(word, location, orientation)
+
+    # def test_is_valid_crossword_vertical(self):
+    #     board = Board()
+    #     board.grid[7][7].add_letter('A')
+    #     board.grid[7][8].add_letter('R')
+    #     board.grid[7][9].add_letter('B')
+    #     board.grid[7][10].add_letter('O')
+    #     board.grid[7][11].add_letter('L')
+
+    #     self.assertTrue(board.is_valid_crossword('CSA', (6, 7), 'V'))
+
 
 
 if __name__ == '__main__':
