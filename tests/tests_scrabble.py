@@ -29,8 +29,16 @@ class TestScrabbleGame(unittest.TestCase):
 
         self.assertEqual(scrabble_game.current_player, 1)
 
-
-    def test_next_turn_when_game_is_not_the_first(self):
+    @patch('game.tiles.BagTiles.take', return_value=[
+        Tile('P', 1),
+        Tile('A', 1),
+        Tile('L', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1)
+    ])
+    def test_next_turn_when_game_is_not_the_first(self, mock_take_tiles):
         scrabble_game= ScrabbleGame(3)
         scrabble_game.current_player = 1
 
@@ -202,22 +210,59 @@ class TestScrabbleGame(unittest.TestCase):
 
     @patch('game.scrabble.ScrabbleGame.get_current_player')
     def test_convert_joker_to_letter(self, mock_get_current_player):
-        # Configurar el jugador actual con una ficha comodín
-        joker_tile = Tile('*', 0)  # Ficha comodín con letra '?'
+        joker_tile = Tile('*', 0)
         player_with_joker = Player()
         player_with_joker.tiles = [joker_tile]
-        
-        # Configurar el método get_current_player() para devolver el jugador con el joker
+
         mock_get_current_player.return_value = player_with_joker
-        
-        # Crear una instancia de ScrabbleGame y llamar al método convert_joker_to_letter
+
         scrabble_game = ScrabbleGame(players_count=3)
-        letter_to_convert = 'A'  # Letra a la que se debe convertir el joker
+        letter_to_convert = 'A' 
         scrabble_game.convert_joker_to_letter(letter_to_convert)
-        
-        # Verificar que el joker se haya convertido correctamente a la letra especificada
+    
         converted_tile = player_with_joker.tiles[0]
         self.assertEqual(converted_tile.letter, letter_to_convert)
+
+    @patch('game.tiles.BagTiles.take', return_value=[
+        Tile('B', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1)
+    ])
+    def test_validate_in_dict(self, mock_take_tiles):
+
+        scrabble_game = ScrabbleGame(players_count=3)
+        scrabble_game.current_player = 0
+        with self.assertRaises(InvalidWord):
+            scrabble_game.validate_word('AB', (7, 7), 'H')
+    
+    @patch('game.tiles.BagTiles.take', return_value=[
+        Tile('P', 1),
+        Tile('A', 1),
+        Tile('L', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1),
+        Tile('A', 1)
+    ])
+    def test_validate_word_valid_word(self, mock_take_tiles):
+        scrabble_game=ScrabbleGame(2)
+        board = Board()
+        board.grid[7][7].add_letter('A')
+        board.grid[7][8].add_letter('R')
+        board.grid[7][9].add_letter('B')
+        board.grid[7][10].add_letter('O')
+        board.grid[7][11].add_letter('L')
+
+        word = 'PALA'
+        location = (1, 5)
+        orientation = 'V'
+        with self.assertRaises(InvalidPlaceWordException):
+            scrabble_game.validate_word(word, location, orientation)
+        
 
         
 

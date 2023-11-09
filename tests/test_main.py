@@ -1,7 +1,7 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from game.main import Main
-from game.scrabble import ScrabbleGame
+from game.scrabble import ScrabbleGame, NoJoker
 from game.cell import Cell
 from game.board import Board
 from io import StringIO
@@ -92,39 +92,13 @@ class TestCLI(unittest.TestCase):
         main_instance.pass_turn(game_mock)
         mock_next_turn.assert_called_once()
 
-    # @patch('builtins.input', side_effect=['A'])
-    # @patch('sys.stdout', new_callable=io.StringIO)
-    # def test_joker_with_valid_input(self, mock_stdout, mock_input):
-    #     main_instance = Main()
-    #     game_mock = Mock()
-    #     game_mock.get_joker_index.return_value = 1
-    #     main_instance.joker(game_mock)
-    #     output = mock_stdout.getvalue().strip()
-    #     game_mock.convert_joker_to_letter.assert_called_once_with('A')
-    #     # Verifica que la salida estándar incluya el mensaje esperado
-    #     self.assertIn('Ingrese la letra por la que desea cambiar el comodin:', output)
-
-    # def test_show_board(self):
-    #     main = Main()
-
-    #     # Crear una instancia de Board
-    #     board = Board()
-
-    #     # Redirigir la salida estándar a un StringIO para capturarla
-    #     with StringIO() as captured_output:
-    #         import sys
-    #         sys.stdout = captured_output
-
-    #         main.show_board(board)
-
-    #         sys.stdout = sys.__stdout__  
-
-    #         captured_output = captured_output.getvalue()
-
-    #         self.assertIn("   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |  12 |  13 |  14 |", captured_output)
-    #         self.assertIn("   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _", captured_output)
-
-
+    @patch('builtins.input', side_effect=['A'])
+    def test_joker_valid_input(self, mock_input):
+        main = Main()
+        game_mock = Mock()
+        game_mock.get_joker_index.return_value = True
+        main.joker(game_mock)
+        game_mock.convert_joker_to_letter.assert_called_once_with('A')
 
 
 

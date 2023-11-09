@@ -3,7 +3,6 @@
 ## FIXED
 
 - method 'put_word' to get the values of the tile of the player rack
-- 
 
 ## ADDED
 
