@@ -3,8 +3,10 @@ Camila Portal
 How to run Scrabble Game:
 
 First step: Clone the repository using: $ git clone https://github.com/um-computacion-tm/scrabble-2023-CamilaPortal.git
+
 Second step: Build the Docker image: $ docker build -t scrabble . (In image name give it the name you want)
-Thirs step: Run the Docker image: $ docker run -it scrabble
+
+Third step: Run the Docker image: $ docker run -it scrabble
 
 CircleCi
 
