@@ -1,5 +1,10 @@
 from game.tiles import Tile
 
+values = {
+    'A': 1, 'B': 3, 'C': 3, 'D': 2, 'E': 1, 'F': 4, 'G': 2, 'H': 4, 'I': 1, 'J': 8, 'L': 1, 'M': 3, 'N': 1, 'Ñ': 8, 'O': 1,
+    'P': 3, 'Q': 5, 'R': 1, 'S': 1, 'T': 1, 'U': 1, 'V': 4, 'X': 8, 'Y': 4, 'Z': 10
+}
+
 class Cell:
     def __init__(self, multiplier=1, multiplier_type="", letter=None, active=True):
 
@@ -14,23 +19,14 @@ class Cell:
     def calculate_value(self):
         if self.letter is None:
             return 0
-        if self.multiplier_type == 'letter' and self.active:
-            return self.letter.value * self.multiplier
+        if self.multiplier_type == 'letter':
+            result = values.get(self.letter.letter) * self.multiplier
+            self.multiplier_type = None
+            self.active = False
+            return result
         else:
-            return self.letter.value
+            return values.get(self.letter.letter, 0)
         
-    def calculate_word_value(self, cells):
-        total_value = 0
-        word_multiplier = 1
-
-        for cell in cells:
-            cell_value = cell.calculate_value()
-            if cell.multiplier_type == 'word' and cell.active:
-                word_multiplier *= cell.multiplier
-            total_value += cell_value
-
-        return total_value * word_multiplier
-
     def __repr__(self):
         if self.letter:
             return repr(self.letter)

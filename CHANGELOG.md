@@ -1,3 +1,61 @@
+## [0.1.0] - 8-11-2023
+
+## FIXED
+
+- method 'put_word' to get the values of the tile of the player rack
+
+## ADDED
+
+- Methods to convert jokers
+
+## [0.0.20] - 7-11-2023
+
+## FIXED
+
+- Method 'calculate_word_value' moved to Board class 
+- method 'play' working correctly in Scrabble class
+- Method 'put_word'
+
+## ADDED 
+
+- Method 'get_word_cells' to transform a word in a list of cells
+- Dictionary that contains the values of each letter (added to class Cell and Board)
+- Method 'play_word' in main.py 
+
+## REMOVED
+
+- Method 'get_tile_value'
+- Method 'get_coordinates_for_index'
+- Method 'deactivate_cell'
+
+## [0.0.19] - 3-11-2023
+
+## ADDED
+
+- Method 'get_tile_value' in ScrabbleGame to get the value of a tile.
+- Method 'get_coordinates_for_index' in ScrabbleGame used to convert an index into the coordinates of the board. Implemented to be used in 'get_score'.
+- Method 'get_score' in ScrabbleGame to get the score of the words played.
+- Method 'play' in ScrabbleGame that gathers everything necessary to play (validations, score calculation, etc.).
+- Method 'deactivate_cell' in Board to deactivate a multiplier.
+- Attribute 'score' added to Player
+
+## ATTEMPT
+
+- Working on modifying the implemented methods to calculate points.
+
+## [0.0.18] - 29-10-2023
+
+## ADDED
+
+- Creation of a menu for possible actions of a player in main.py
+- Creation of method 'pass_turn' to skip turn
+
+## [0.0.18] - 28-10-2023
+
+## ADDED
+
+- Method 'validate_word' to validate if the word exists, if it fits on the board and if is possible put it there
+
 ## [0.0.17] - 23-10-2023
 
 ## FIXED

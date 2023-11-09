@@ -8,6 +8,10 @@ DOUBLE_WORD_SCORE = ((1,1), (2,2), (3,3), (4,4), (1, 13), (2, 12), (3, 11), (4, 
 TRIPLE_LETTER_SCORE = ((1,5), (1, 9), (5,1), (5,5), (5,9), (5,13), (9,1), (9,5), (9,9), (9,13), (13, 5), (13,9))
 DOUBLE_LETTER_SCORE = ((0, 3), (0,11), (2,6), (2,8), (3,0), (3,7), (3,14), (6,2), (6,6), (6,8), (6,12), (7,3), (7,11),
                         (8,2), (8,6), (8,8), (8, 12), (11,0), (11,7), (11,14), (12,6), (12,8), (14, 3), (14, 11))
+values = {
+    'A': 1, 'B': 3, 'C': 3, 'D': 2, 'E': 1, 'F': 4, 'G': 2, 'H': 4, 'I': 1, 'J': 8, 'L': 1, 'M': 3, 'N': 1, 'Ñ': 8, 'O': 1,
+    'P': 3, 'Q': 5, 'R': 1, 'S': 1, 'T': 1, 'U': 1, 'V': 4, 'X': 8, 'Y': 4, 'Z': 10
+}
 
 class SoloVoHParaLaOrientacion(Exception):
     pass
@@ -44,7 +48,6 @@ class Board:
             self.set_cell_multiplier(coordinate, "letter", 3)
         for coordinate in DOUBLE_LETTER_SCORE:
             self.set_cell_multiplier(coordinate, "letter", 2)
-    
 
     def validate_word_horizontal(self, word, location):
         x, y = location
@@ -59,9 +62,9 @@ class Board:
         return True
 
     def validate_word_inside_board(self, word, location, orientation):
-        if orientation.lower() == "h":
+        if orientation.upper() == "H":
             return self.validate_word_horizontal(word, location)
-        elif orientation.lower() == "v":
+        elif orientation.upper() == "V":
             return self.validate_word_vertical(word, location)
         else:
             raise SoloVoHParaLaOrientacion(Exception)
@@ -110,34 +113,94 @@ class Board:
         else:
             raise SoloVoHParaLaOrientacion(Exception)
         
-    def put_word(self, word, location, orientation):
-        x, y = location
-        if orientation.lower() == 'h':
-            for i, tile in enumerate(word):
-                self.grid[x][y + i].add_letter(tile)
-        elif orientation.lower() == 'v':
-            for i, tile in enumerate(word):
-                self.grid[x + i][y].add_letter(tile)
-        else:
-            raise SoloVoHParaLaOrientacion(Exception)
-        
-    # def draw_board(self):
-    #     board_str = "     1  2  3  4  5  6  7  8  9 10 11 12 13 14 15\n"
-    #     for row_index, row in enumerate(self.grid, start=1):
-    #         row_str = f"{row_index:2}|  "
-    #         for cell in row:
-    #             if cell.active and cell.letter:
-    #                 row_str += f"{cell.letter} "
-    #             else:
-    #                 row_str += "_  "
-    #         board_str += row_str + "\n"
-    #     return board_str
+    # def put_word(self, word, location, orientation):
+    #     x, y = location
+    #     cells = []
+    #     for i, letter in enumerate(word):
+    #         if orientation.upper() == 'H':
+    #             cell= self.grid[x][y + i]
+    #         elif orientation.upper() == 'V':
+    #             cell=self.grid[x + i][y]
+            
+    #         value = values.get(letter, 0)
+    #         tile = Tile(letter=letter, value=value)
+    #         cell.add_letter(tile)
+    #         cells.append(cell)
+    #     return cells
 
-    # def put_word(self, word, location, orientation, player):
-    #     affected_cells =[]
-    #     from_row, from_col= location
-    #     if orientation == "v":
-    #         for row_
+    def put_word(self, word, location, orientation, player_tiles):
+        x, y = location
+        cells = []
+        for i, letter in enumerate(word):
+            if orientation.upper() == 'H':
+                cell = self.grid[x][y + i]
+            elif orientation.upper() == 'V':
+                cell = self.grid[x + i][y]
+            
+            # Buscar la letra en las fichas del jugador
+            tile = next((t for t in player_tiles if t.letter == letter), None)
+            if tile:
+                value = tile.value
+            else:
+                value = 0  # Asignar un valor predeterminado si la letra no está en las fichas del jugador
+            
+            cell.add_letter(Tile(letter=letter, value=value))
+            cells.append(cell)
+        
+        # Actualizar la lista de fichas del jugador después de jugar la palabra
+        for letter in word:
+            tile_to_remove = next((t for t in player_tiles if t.letter == letter), None)
+            if tile_to_remove:
+                player_tiles.remove(tile_to_remove)
+        
+        return cells
+            
+    def get_word_cells(self, word, location, orientation):
+        word_cells = [] 
+        row, col = location 
+
+        for letter in word:
+            word_cells.append(self.grid[row][col])  
+            if orientation.upper() == 'H':
+                col += 1  
+            elif orientation.upper()=='V':
+                row += 1  
+        return word_cells
+    
+    @staticmethod
+    def calculate_word_value(word: list[Cell]) -> int:
+        value: int = 0
+        multiplier_word = None
+
+        for cell in word:
+            value = value + cell.calculate_value()
+            if cell.multiplier_type == "word" and cell.active:
+                multiplier_word = cell.multiplier
+                cell.active == False
+        if multiplier_word:
+            value = value * multiplier_word
+        return value
+        
+                
+    def has_adjacent_horizontal_letter(self, x, y):
+        return (y - 1 >= 0 and self.grid[x][y - 1].letter is not None) or (y + 1 < 15 and self.grid[x][y + 1].letter is not None)
+
+    def has_adjacent_vertical_letter(self, x, y):
+        return (x - 1 >= 0 and self.grid[x - 1][y].letter is not None) or (x + 1 < 15 and self.grid[x + 1][y].letter is not None)
+
+
+    def is_valid_crossword(self, word, location, orientation):
+        x, y = location
+        for i, letter in enumerate(word):
+            if orientation.lower() == 'h':
+                if self.has_adjacent_horizontal_letter(x, y + i):
+                    return True
+            elif orientation.lower() == 'v':
+                if self.has_adjacent_vertical_letter(x + i, y):
+                    return True
+        return False
+    
+
 
 
 
