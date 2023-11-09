@@ -1,5 +1,8 @@
 from game.tiles import BagTiles
-from game.tiles import Tile
+from game.tiles import BagTiles
+
+class NoJoker(Exception):
+    pass
 
 class Player:
 
@@ -27,5 +30,22 @@ class Player:
         
         return True
     
+    def joker_in_tiles(self):
+        for tile in self.tiles:
+            if tile.letter == '*':
+                return True
+        return False
+
+    def convert_joker(self, letter):
+        joker_tile = next((tile for tile in self.tiles if tile.letter == '*'), None)
+        if joker_tile:
+            joker_tile.letter = letter.upper()
+            joker_tile.value = 0
+            
+        else:
+            raise NoJoker("No tiene joker")
+        
     
-    #def take_tile_using_letters()
+
+    
+

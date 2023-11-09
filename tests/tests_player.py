@@ -1,5 +1,5 @@
 import unittest
-from game.player import Player
+from game.player import Player, NoJoker
 from game.tiles import Tile, BagTiles
 
 class TestPlayer(unittest.TestCase):
@@ -54,6 +54,7 @@ class TestPlayer(unittest.TestCase):
         word = 'GOOD'
         result = player.has_letters(word)
         self.assertFalse(result)
+        self.assertEqual(len(player.tiles), 7)
 
     def test_has_letters_with_duplicate_letters(self):
         bag_tiles = BagTiles()
@@ -86,6 +87,37 @@ class TestPlayer(unittest.TestCase):
         word = 'GOOD'
         result = player.has_letters(word)
         self.assertFalse(result)
+
+    def test_joker_in_tiles(self):
+        bag_tiles=BagTiles()
+        player= Player(bag_tiles)
+        player.tiles = [Tile('A', 1), Tile('B', 1), Tile('*', 0), Tile('D', 1)]
+        
+        self.assertTrue(player.joker_in_tiles())
+
+    def test_joker_not_in_tiles(self):
+        bag_tiles=BagTiles()
+        player= Player(bag_tiles)
+        player.tiles = [Tile('A', 1), Tile('B', 1), Tile('D', 1)]
+
+        self.assertFalse(player.joker_in_tiles())
+
+    def test_convert_joker_with_joker(self):
+        bag_tiles=BagTiles()
+        player= Player(bag_tiles)
+        player.tiles = [Tile('A', 1), Tile('*', 0), Tile('C', 3)]
+        letter_to_convert = 'B'
+        player.convert_joker(letter_to_convert)   
+        self.assertEqual(player.tiles[1].letter, letter_to_convert.upper())
+        self.assertEqual(player.tiles[1].value, 0)
+
+    def test_convert_joker_without_joker(self):
+        bag_tiles=BagTiles()
+        player= Player(bag_tiles)
+        player.tiles = [Tile('A', 1), Tile('C', 3)]
+        letter_to_convert = 'B'
+        with self.assertRaises (NoJoker):
+            player.convert_joker(letter_to_convert)   
 
 
 if __name__ == '__main__':

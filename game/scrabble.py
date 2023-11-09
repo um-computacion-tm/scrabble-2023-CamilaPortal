@@ -10,6 +10,9 @@ class InvalidWord(Exception):
 class InvalidPlaceWordException(Exception):
     pass
 
+class NoJoker(Exception):
+    pass
+
 class ScrabbleGame:
     def __init__(self, players_count):
         self.board = Board()
@@ -29,6 +32,9 @@ class ScrabbleGame:
     def get_current_player(self):
         return self.players[self.current_player]
     
+    def get_player_tiles(self):
+        return self.players[self.current_player].tiles
+    
     def get_board(self):
         return self.board
         
@@ -36,38 +42,50 @@ class ScrabbleGame:
         word = word.upper()
         if not validate_word_dict(word):
             raise InvalidWord("No existe la palabra")
-        if not self.board.validate_word_inside_board(word, location, orientation):
+        elif not self.board.validate_word_inside_board(word, location, orientation):
             raise InvalidPlaceWordException("No es correcta la ubicación")
-        if not self.board.validate_word_place_board(word, location, orientation):
+        elif not self.board.is_empty():
+            if not self.board.is_valid_crossword(word, location, orientation):
+                raise InvalidPlaceWordException("La palabra debe estar cruzada")
+        elif not self.board.validate_word_place_board(word, location, orientation):
             raise InvalidPlaceWordException("No se puede colocar")
-    
-    def play(self, word, location, orientation):
-   
+        
+    def convert_joker_to_letter(self, letter):
+        current_player = self.get_current_player()
+        current_player.convert_joker(letter)
+
+    def get_joker_index(self):
+        joker_indices = [index for index, tile in enumerate(self.get_current_player().tiles) if tile.letter == '*']
+        if joker_indices:
+            return joker_indices[0]
+        else:
+            raise ValueError("No tiene joker")
+        
+    def play(self, word, location, orientation, rack):
+
         self.validate_word(word, location, orientation)
-        self.player.has_letters(word)
-        self.board.put_word(word, location, orientation)
+        self.get_current_player().has_letters(word)
+        self.board.put_word(word, location, orientation, rack)
         word_cells = self.board.get_word_cells(word, location, orientation) 
         total_score = self.board.calculate_word_value(word_cells)
         self.players[self.current_player].score += total_score
         self.players[self.current_player].rellenar()
         self.next_turn()
 
+    def compare_score(self):
+        max_score = 0
+        max_score_players = []
+
+        for player in self.players:
+            if player.score > max_score:
+                max_score = player.score
+                max_score_players = [player]
+            elif player.score == max_score:
+                max_score_players.append(player)
+
+        return max_score_players
     
-    # def play(self, word, location, orientation):
-    #     self.validate_word(word, location, orientation)
-    #     words=self.board.put_word(word, location, orientation)
-    #     total = calculate_words_value(words)
-    #     self.players[self.current_player].score += total
-    #     self.next_turn()
-
-
-    # def change(self, letters):
-    #     self.get_current_player().take_tile_using_letters(letters)
-
-    # def play(self, word, location, orientation):
-    #     missing_lettes = self.validate_word(word, location, orientation)
-    #     words= self.board.put_word(word, location, orientation, self.get_current_player())
-    #     total=calculate_words_value(words)
-    #     self.get_current_player().fill()
-    #     self.get_current_player().score +=total
-    #     self.next_turn()
+    def finish_game(self):
+        if len(self.bag_tiles.tiles) == 0:
+            return True
+        return False

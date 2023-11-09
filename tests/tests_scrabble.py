@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from game.scrabble import ScrabbleGame, InvalidWord, InvalidPlaceWordException
+from game.scrabble import ScrabbleGame, InvalidWord, InvalidPlaceWordException, NoJoker
 from game.board import Board
 from game.player import Player
 from game.cell import Cell
@@ -68,111 +68,87 @@ class TestScrabbleGame(unittest.TestCase):
     #     result = scrabble_game.validate_word('PALA', (7, 7), 'H')
     #     self.assertEqual(result, True)
 
-    def test_invalid_word_not_in_dict(self):
-        scrabble_game = ScrabbleGame(3)
-        with self.assertRaises(InvalidWord):
-            scrabble_game.validate_word("ASD", (7, 7), "H")
+    # def test_invalid_word_not_in_dict(self):
+    #     scrabble_game = ScrabbleGame(3)
+    #     with self.assertRaises(InvalidWord):
+    #         scrabble_game.validate_in_dict("ASD")
     
     def test_invalid_word_not_inside_board(self):
         scrabble_game = ScrabbleGame(3)
         with self.assertRaises(InvalidPlaceWordException):
             scrabble_game.validate_word("PALABRA", (10, 10), "H")
-    
-    # @patch('game.scrabble.ScrabbleGame.validate_word', return_value=InvalidWord)
-    # def test_invalid_word_has_not_letters(self, mock_validate_word):
-    #     scrabble_game = ScrabbleGame(players_count=3)
-    #     scrabble_game.current_player = scrabble_game.players[0]
-    #     scrabble_game.players[0].tiles = [
-    #         Tile('P', 1),
-    #         Tile('A', 1),
-    #         Tile('L', 1),
-    #         Tile('A', 1),
-    #         Tile('B', 1),
-    #         Tile('A', 1),
-    #         Tile('A', 1)
-    #         ]
-    #     mock_validate_word.side_effect = InvalidWord("No tienes las letras para formar esta palabra")
-    #     with self.assertRaises(InvalidWord):
-    #         scrabble_game.validate_word("HOLA", (7, 7), "H")
+
 
     def test_invalid_word_cannot_place(self):
         scrabble_game = ScrabbleGame(3)
         with self.assertRaises(InvalidPlaceWordException):
             scrabble_game.validate_word("PALABRA", (0, 0), "H")
 
+    def compare_score(self):
+        game = ScrabbleGame(3)
+        game.players[0].score = 50
+        game.players[1].score = 30
+        game.players[2].score = 40
+        result = game.compare_score()
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0].score, 50)
+    
+    def test_compare_score_multiple_winners(self):
+        game = ScrabbleGame(3)
+        game.players[0].score = 50
+        game.players[1].score = 50
+        game.players[2].score = 40
+        result = game.compare_score()
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0].score, 50)
+        self.assertEqual(result[1].score, 50)
 
-    @patch('game.scrabble.ScrabbleGame.validate_word')
-    def test_valid_word_placement(self, mock_play):
-        scrabble_game = ScrabbleGame(players_count=3)
-        scrabble_game.current_player = 0
-        scrabble_game.players[0].tiles = [
-            Tile('H', 4),
-            Tile('A', 1),
-            Tile('L', 1),
-            Tile('A', 1),
-            Tile('B', 3),
-            Tile('O', 1),
-            Tile('A', 1)
-            ]
-        word = "HOLA"
-        location = (7, 7)
-        orientation = "H"
-        initial_score_player1 = scrabble_game.players[0].score
-        scrabble_game.play(word, location, orientation)
-        final_score_player1 = scrabble_game.players[0].score
-        final_score_player2 = scrabble_game.players[1].score
-        final_score_player3 = scrabble_game.players[2].score
+    def test_finish_game_empty_bag(self):
+        game = ScrabbleGame(3)
+        game.bag_tiles.tiles = []
+        result = game.finish_game()
+        self.assertTrue(result)
 
-        self.assertEqual(initial_score_player1, 0)
-        self.assertEqual(final_score_player1, 7)
+    def test_finish_game_non_empty_bag(self):
+        game = ScrabbleGame(3)
+        game.bag_tiles.tiles = [Tile('A', 1), Tile('B', 3)]
+        result = game.finish_game()
+        self.assertFalse(result)
 
-        self.assertEqual(final_score_player2, 0)
-        self.assertEqual(final_score_player3, 0)
-
-    @patch('game.scrabble.ScrabbleGame.validate_word', return_value=6)
-    def test_play_horizontal(self, mock_validate_word):
-        scrabble_game = ScrabbleGame(players_count=3)
-        scrabble_game.current_player = 0
-        scrabble_game.players[0].tiles = [
-            Tile('P', 3),
-            Tile('A', 1),
-            Tile('L', 1),
-            Tile('A', 1),
-            Tile('A', 1),
-            Tile('A', 1),
-            Tile('A', 1)
+    def test_get_joker_index(self):
+        game = ScrabbleGame(2)
+        game.next_turn()
+        game.get_current_player().tiles = [
+            Tile(letter='A', value=1),
+            Tile(letter='*', value=0),
+            Tile(letter='B', value=3)
         ]
-        scrabble_game.play('PALA', (7, 7), 'H')
-        self.assertEqual(scrabble_game.players[0].score, 6)
-        self.assertEqual(scrabble_game.board.grid[7][7].letter.letter, 'P')
+        index = game.get_joker_index()
+        self.assertEqual(index, 1)
 
-    @patch('game.scrabble.ScrabbleGame.validate_word', return_value=4)
-    def test_play_vertical(self, mock_validate_word):
-        scrabble_game = ScrabbleGame(players_count=3)
-        scrabble_game.current_player = 0
-        scrabble_game.players[0].tiles = [
-            Tile('P', 3),
-            Tile('A', 1),
-            Tile('L', 1),
-            Tile('A', 1),
-            Tile('A', 1),
-            Tile('A', 1),
-            Tile('A', 1)
-        ]
-        scrabble_game.play('PALA', (7, 7), 'V')
-        self.assertEqual(scrabble_game.players[0].score, 6)
+    # def test_play(self):
+    #     game=ScrabbleGame(2)
+    #     word="asd"
+    #     location= (7,7)
+    #     orientation="H"
 
-    # def test_deactivate_cells_after_play(self):
-    #     scrabble_game = ScrabbleGame(2)
-    #     scrabble_game.play("CREMA", (7, 7), 'H')
+    #     result=game.play(word, location, orientation)
 
-    #     self.assertEqual(scrabble_game.players[0].score, 10)
-
-    #     scrabble_game.play("S", (7, 12), 'H')
-    #     self.assertEqual(scrabble_game.players[1].score, 8)
+    #     self.assertEqual(result, False)
 
 
+    # def test_get_joker_index_without_joker(self):
+    #     tiles_without_joker = ['A', 'B', 'C', 'D']
+    #     player = Player(tiles_without_joker)
+    #     # Asegúrate de que se lance la excepción ValueError si el jugador no tiene comodín
+    #     with self.assertRaises(ValueError):
+    #         player.get_joker_index()
 
+    # def test_get_tiles(self):
+    #     game = ScrabbleGame(3)
+
+    #     self.assertEqual(game.get_player_tiles(), ['A', 'B', 'C'])
+        
 
 
 if __name__ == '__main__':

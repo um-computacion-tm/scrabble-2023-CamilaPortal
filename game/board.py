@@ -10,7 +10,7 @@ DOUBLE_LETTER_SCORE = ((0, 3), (0,11), (2,6), (2,8), (3,0), (3,7), (3,14), (6,2)
                         (8,2), (8,6), (8,8), (8, 12), (11,0), (11,7), (11,14), (12,6), (12,8), (14, 3), (14, 11))
 values = {
     'A': 1, 'B': 3, 'C': 3, 'D': 2, 'E': 1, 'F': 4, 'G': 2, 'H': 4, 'I': 1, 'J': 8, 'L': 1, 'M': 3, 'N': 1, 'Ñ': 8, 'O': 1,
-    'P': 3, 'Q': 5, 'R': 1, 'S': 1, 'T': 1, 'U': 1, 'V': 4, 'X': 8, 'Y': 4, 'Z': 10, '*':0
+    'P': 3, 'Q': 5, 'R': 1, 'S': 1, 'T': 1, 'U': 1, 'V': 4, 'X': 8, 'Y': 4, 'Z': 10
 }
 
 class SoloVoHParaLaOrientacion(Exception):
@@ -113,19 +113,46 @@ class Board:
         else:
             raise SoloVoHParaLaOrientacion(Exception)
         
-    def put_word(self, word, location, orientation):
+    # def put_word(self, word, location, orientation):
+    #     x, y = location
+    #     cells = []
+    #     for i, letter in enumerate(word):
+    #         if orientation.upper() == 'H':
+    #             cell= self.grid[x][y + i]
+    #         elif orientation.upper() == 'V':
+    #             cell=self.grid[x + i][y]
+            
+    #         value = values.get(letter, 0)
+    #         tile = Tile(letter=letter, value=value)
+    #         cell.add_letter(tile)
+    #         cells.append(cell)
+    #     return cells
+
+    def put_word(self, word, location, orientation, player_tiles):
         x, y = location
         cells = []
         for i, letter in enumerate(word):
             if orientation.upper() == 'H':
-                cell= self.grid[x][y + i]
+                cell = self.grid[x][y + i]
             elif orientation.upper() == 'V':
-                cell=self.grid[x + i][y]
+                cell = self.grid[x + i][y]
             
-            value = values.get(letter, 0)
-            tile = Tile(letter=letter, value=value)
-            cell.add_letter(tile)
+            # Buscar la letra en las fichas del jugador
+            tile = next((t for t in player_tiles if t.letter == letter), None)
+            if tile:
+                value = tile.value
+            else:
+                value = 0  # Asignar un valor predeterminado si la letra no está en las fichas del jugador
+            
+            cell.add_letter(Tile(letter=letter, value=value))
             cells.append(cell)
+        
+        # Actualizar la lista de fichas del jugador después de jugar la palabra
+        for letter in word:
+            tile_to_remove = next((t for t in player_tiles if t.letter == letter), None)
+            if tile_to_remove:
+                player_tiles.remove(tile_to_remove)
+        
         return cells
             
     def get_word_cells(self, word, location, orientation):
@@ -153,20 +180,27 @@ class Board:
         if multiplier_word:
             value = value * multiplier_word
         return value
+        
                 
-    # def is_valid_crossword(self, word, location, orientation):
-    #     x, y = location
-    #     for i, letter in enumerate(word):
-    #         if orientation.lower() == 'h':
-    #             if (y + i - 1 >= 0 and self.grid[x][y + i - 1].letter is not None) or \
-    #                (y + i + 1 < 15 and self.grid[x][y + i + 1].letter is not None):
-    #                 return True
-    #         elif orientation.lower() == 'v':
-    #             if (x + i - 1 >= 0 and self.grid[x + i - 1][y].letter is not None) or \
-    #                (x + i + 1 < 15 and self.grid[x + i + 1][y].letter is not None):
-    #                 return True
+    def has_adjacent_horizontal_letter(self, x, y):
+        return (y - 1 >= 0 and self.grid[x][y - 1].letter is not None) or (y + 1 < 15 and self.grid[x][y + 1].letter is not None)
 
-    #     return False
+    def has_adjacent_vertical_letter(self, x, y):
+        return (x - 1 >= 0 and self.grid[x - 1][y].letter is not None) or (x + 1 < 15 and self.grid[x + 1][y].letter is not None)
+
+
+    def is_valid_crossword(self, word, location, orientation):
+        x, y = location
+        for i, letter in enumerate(word):
+            if orientation.lower() == 'h':
+                if self.has_adjacent_horizontal_letter(x, y + i):
+                    return True
+            elif orientation.lower() == 'v':
+                if self.has_adjacent_vertical_letter(x + i, y):
+                    return True
+        return False
+    
+
 
 
 

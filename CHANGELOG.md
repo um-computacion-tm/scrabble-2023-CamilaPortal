@@ -2,6 +2,17 @@
 
 ## FIXED
 
+- method 'put_word' to get the values of the tile of the player rack
+- 
+
+## ADDED
+
+- Methods to convert jokers
+
+## [0.0.20] - 7-11-2023
+
+## FIXED
+
 - Method 'calculate_word_value' moved to Board class 
 - method 'play' working correctly in Scrabble class
 - Method 'put_word'

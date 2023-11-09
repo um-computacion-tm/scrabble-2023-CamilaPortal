@@ -36,7 +36,7 @@ class BagTiles:
             Tile("S", 1), Tile("S", 1), Tile("S", 1), Tile("S", 1), Tile("S", 1), Tile("S", 1),
             Tile("N", 1), Tile("N", 1), Tile("N", 1), Tile("N", 1), Tile("N", 1),
             Tile("L", 1), Tile("L", 1), Tile("L", 1), Tile("L", 1), Tile("L", 1),
-            Tile("R", 1), Tile("R", 1), Tile("R", 1), Tile("R", 1), Tile("R", 1),
+            Tile("R", 1), Tile("R", 1), Tile("R", 1), Tile("R", 1), Tile("R", 1), Tile("R", 1),
             Tile("U", 1), Tile("U", 1), Tile("U", 1), Tile("U", 1), Tile("U", 1),
             Tile("T", 1), Tile("T", 1), Tile("T", 1), Tile("T", 1),
             Tile("D", 2), Tile("D", 2), Tile("D", 2), Tile("D", 2), Tile("D", 2),
@@ -52,7 +52,6 @@ class BagTiles:
             Tile("Q", 5),
             Tile("J", 8),
             Tile("Ñ", 8),
-            Tile("RR", 8),
             Tile("X", 8),
             Tile("Z", 10),
             Tile("*", 0),
@@ -77,5 +76,6 @@ class BagTiles:
             raise BolsaLlena(Exception)
         else:
             self.tiles.extend(tiles)
+            random.shuffle(self.tiles)
 
 
