@@ -59,7 +59,7 @@ class ScrabbleGame:
         if joker_indices:
             return joker_indices[0]
         else:
-            raise ValueError("No tiene joker")
+            raise NoJoker("No tiene joker")
         
     def play(self, word, location, orientation, rack):
 
